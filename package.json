@@ -1,0 +1,32 @@
+{
+  "name": "2021-lamas",
+  "version": "1.0.0",
+  "description": "Logical Aspects of Multi-Agent Systems",
+  "main": "index.js",
+  "direToctories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wehzie/2021-lamas.git"
+  },
+  "keywords": [
+    "mas",
+    "multi",
+    "agent",
+    "system"
+  ],
+  "author": "Charlie Albietz, Corine Nijhof, Rafael Tappe Maestro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wehzie/2021-lamas/issues"
+  },
+  "homepage": "https://github.com/Wehzie/2021-lamas#readme",
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "prettier": "2.3.0"
+  }
+}
