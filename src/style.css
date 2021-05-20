@@ -1,0 +1,74 @@
+html {
+    font-family: "Courier New", Courier, monospace;
+    color: white;
+    background-color: rgb(253, 199, 128);
+}
+
+.brokenLine {font-size: 16vw;}
+.oneLine {display: none;}
+
+@media screen and (min-width: 20cm) {
+    .brokenLine {display: none;}
+    .oneLine {font-size: 10vw; display: block}
+}
+
+body {
+    font-size: 2em;
+    text-align: center;
+}
+
+nav {
+    font-weight: bold;
+}
+
+footer {
+    font-weight: bold;
+}
+
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:link {
+    color: white;
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(139, 208, 251);
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+a:active {
+    color: white;
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid white;
+    margin: 1em 0;
+    padding: 0; 
+}
+
+button {
+    background-color: rgb(65, 224, 208);
+    color: white;
+    border: 0.2em solid rgb(138, 40, 230);
+    border-radius: 12%;
+    padding: 1em 1em;
+
+    text-align: center;
+    display: inline-block;
+    font-size: 1em;
+    font-family: "Courier New", Courier, monospace;
+
+    outline: none;
+}
