@@ -47,7 +47,7 @@ class Card{
     }
 }
 function prom(){
-    prompt('hello');
+    return 'fuck';
 }
 
-export default prom;
+exports.prom = prom;
