@@ -14,7 +14,7 @@ Install the formatter `prettier` from <prettier.io>.
 
 Run the formatter to format HTML, CSS, JavaScript and Markdown files.
 
-    npx prettier -w .
+    npx prettier -w docs/.
 
 ## Linting
 
@@ -29,4 +29,3 @@ Install the linter `ESLint` from <eslint.org>.
 Run the linter to find errors in JavaScript code.
 
     npx eslint docs
-

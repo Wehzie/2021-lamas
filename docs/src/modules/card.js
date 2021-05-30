@@ -1,53 +1,53 @@
-class Card{
-    constructor(value, suit){
-        this.value = value;
-        this.suit = suit;
+class Card {
+    constructor(value, suit) {
+        this.value = value
+        this.suit = suit
         this.colour = this.get_colour(suit)
     }
-    get value(){
-        return this.value;
+    get_value() {
+        return this.value
     }
-    get suit(){
-        return this.suit;
+    get_suit() {
+        return this.suit
     }
-    get colour(){
-        return this.colour;
+    get_colour() {
+        return this.colour
     }
-    value_of_card(value){
-        switch(value){
+    value_of_card(value) {
+        switch (value) {
             case 1:
-                return 'A';
+                return "A"
             case 11:
-                return 'J';
+                return "J"
             case 12:
-                return 'Q';
+                return "Q"
             case 13:
-                return 'K';
+                return "K"
             default:
                 return `${value}`
         }
     }
 
-    get_colour(){
-        if (suit == 'hearts' || suit == 'diamonds') return 'Red';
-        return 'Black'
+    get_colour() {
+        if (this.suit == "hearts" || this.suit == "diamonds") return "Red"
+        return "Black"
     }
 
-    print_card(){
-        switch(this.suit) {
-            case 'hearts':
-                return `♡ ${this.value}`;
+    print_card() {
+        switch (this.suit) {
+            case "hearts":
+                return `♡ ${this.value}`
             case `diamonds`:
-                return `♢ ${this.value}`;
-            case 'clubs':
-                return `♧ ${this.value}`;
-            case 'spades':
-              return `♤ ${this.value}`;
-          }
+                return `♢ ${this.value}`
+            case "clubs":
+                return `♧ ${this.value}`
+            case "spades":
+                return `♤ ${this.value}`
+        }
     }
 }
-function prom(){
-    return 'fuck';
+function test() {
+    return "fuck"
 }
 
-exports.prom = prom;
+export { Card, test }
