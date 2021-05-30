@@ -46,3 +46,8 @@ class Card{
           }
     }
 }
+function prom(){
+    prompt('hello');
+}
+
+export default prom;
