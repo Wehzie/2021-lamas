@@ -2,41 +2,42 @@ import { Hand } from "./hand.js"
 
 class Agent {
     constructor() {
-        this.hand = new Hand()
-        this.books = 0
+        this.hand_ = new Hand()
+        this.books_ = 0
         this.has_cards = false
+        this.name = null
         //this.Knowledge = new this.Knowledge();
     }
     get books(){
-        return this.books
+        return this.books_
     }
     get hand(){
-        return this.hand
+        return this.hand_
     }
 
     has_specific_cards(value){
-        return this.hand.query(value)
+        return this.hand_.query(value)
     }
 
     receive_card(card){
-        this.hand.add_card(card)
+        this.hand_.add_card(card)
         this.has_cards = true
-        if (this.hand.check_if_book(card)){
+        if (this.hand_.check_if_book(card)){
             return true
         }
         return false
     }
 
     give_cards(agent, value){
-        let cards = this.hand.remove_cards(value)
+        let cards = this.hand_.remove_cards(value)
         let obtained_books = 0
         for (card in cards){
             if(agent.receive_card(card)) books +=1
         }
-        if (this.hand.size == 0){
+        if (this.hand_.size == 0){
             this.has_cards = false
         }
-        this.books += obtained_books
+        this.books_ += obtained_books
         return obtained_books;
     }
 

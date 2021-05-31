@@ -1,23 +1,28 @@
 //import { Deck } from "./deck"
 
 class Hand {
-    constructor(deck) {
-        this.deck = deck
-        this.size = 0
-        this.ordered_array = this.create_ordered_array()
+    constructor() {
+        this.deck_ = null
+        this._size = 0
+        this.ordered_array = null
     }
 
     get size(){
         return this.size
     }
-
-    set size(val){
-        this.size += val
+    set deck(deck){
+        console.log('helloo')
+        this.deck_ = deck
+        this.ordered_array = this.create_ordered_array()
     }
+
+    // set size(val){
+    //     this.size += val
+    // }
 
     create_ordered_array() {
         let ordered = []
-        for (let i = 0; i < this.deck.number_of_cards; i++) {
+        for (let i = 0; i < this.deck_.number_of_cards; i++) {
            let new_arr = []
            ordered.push(new_arr)
         }
@@ -48,7 +53,7 @@ class Hand {
         let amount = cards.length
         let empty = []
         this.ordered_array[value - 1] = empty
-        this.size -= amount 
+        this._size -= amount 
         return cards
     }
 

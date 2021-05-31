@@ -11,6 +11,7 @@ class Round {
     }
 
     start_round(){
+        console.log('start round')
         for(player in this.players){
             if (typeof(Player) == player.GetType()){
                 this.start_turn_player(player)
