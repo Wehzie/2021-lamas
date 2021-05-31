@@ -9,7 +9,7 @@ class Deck {
     get number_of_cards() {
         return this.number_of_cards_
     }
-    draw_possible(){
+    draw_possible() {
         return this.size > 0
     }
 
@@ -17,7 +17,7 @@ class Deck {
         if (num > 13) return 13
         else return num
     }
-    deal(agent){
+    deal(agent) {
         agent.receive_card(this.card_list.pop())
         this.size = this.card_list.length
     }

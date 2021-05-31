@@ -7,11 +7,11 @@ class Hand {
         this.ordered_array = null
     }
 
-    get size(){
+    get size() {
         return this.size
     }
-    set deck(deck){
-        console.log('helloo')
+    set deck(deck) {
+        console.log("helloo")
         this.deck_ = deck
         this.ordered_array = this.create_ordered_array()
     }
@@ -23,8 +23,8 @@ class Hand {
     create_ordered_array() {
         let ordered = []
         for (let i = 0; i < this.deck_.number_of_cards; i++) {
-           let new_arr = []
-           ordered.push(new_arr)
+            let new_arr = []
+            ordered.push(new_arr)
         }
         return ordered
     }
@@ -40,9 +40,9 @@ class Hand {
         this.ordered_array[card.value - 1] = newSet
     }
 
-    check_if_book(card){
+    check_if_book(card) {
         set = this.ordered_array[card.value - 1]
-        if (set.length == 4){
+        if (set.length == 4) {
             return true
         }
         return false
@@ -53,7 +53,7 @@ class Hand {
         let amount = cards.length
         let empty = []
         this.ordered_array[value - 1] = empty
-        this._size -= amount 
+        this._size -= amount
         return cards
     }
 

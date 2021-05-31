@@ -48,7 +48,7 @@ class Card {
     }
 }
 function test() {
-    prompt('testing this crap')
+    prompt("testing this crap")
 }
 
 export { Card, test }

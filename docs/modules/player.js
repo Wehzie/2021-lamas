@@ -8,54 +8,52 @@ class Agent {
         this.name = null
         //this.Knowledge = new this.Knowledge();
     }
-    get books(){
+    get books() {
         return this.books_
     }
-    get hand(){
+    get hand() {
         return this.hand_
     }
 
-    has_specific_cards(value){
+    has_specific_cards(value) {
         return this.hand_.query(value)
     }
 
-    receive_card(card){
+    receive_card(card) {
         this.hand_.add_card(card)
         this.has_cards = true
-        if (this.hand_.check_if_book(card)){
+        if (this.hand_.check_if_book(card)) {
             return true
         }
         return false
     }
 
-    give_cards(agent, value){
+    give_cards(agent, value) {
         let cards = this.hand_.remove_cards(value)
         let obtained_books = 0
-        for (card in cards){
-            if(agent.receive_card(card)) books +=1
+        for (card in cards) {
+            if (agent.receive_card(card)) books += 1
         }
-        if (this.hand_.size == 0){
+        if (this.hand_.size == 0) {
             this.has_cards = false
         }
         this.books_ += obtained_books
-        return obtained_books;
+        return obtained_books
     }
-
-
 }
 
 class Player extends Agent {
     constructor(name) {
-        super();
+        super()
         this.name = name
     }
 }
 
 class AI extends Agent {
     constructor(number) {
-        super();
+        super()
         this.number = number
-        this.name = `AI ${this.name}`
+        this.name = `AI ${this.number}`
     }
 }
 
