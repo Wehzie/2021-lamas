@@ -34,20 +34,21 @@ class Card {
     }
 
     print_card() {
+        let value = this.value_of_card(this.value)
         switch (this.suit) {
             case "hearts":
-                return `♡ ${this.value}`
+                return `♡ ${value}`
             case `diamonds`:
-                return `♢ ${this.value}`
+                return `♢ ${value}`
             case "clubs":
-                return `♧ ${this.value}`
+                return `♧ ${value}`
             case "spades":
-                return `♤ ${this.value}`
+                return `♤ ${value}`
         }
     }
 }
 function test() {
-    return "fuck"
+    prompt('testing this crap')
 }
 
 export { Card, test }

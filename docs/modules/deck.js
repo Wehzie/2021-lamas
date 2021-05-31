@@ -4,14 +4,22 @@ class Deck {
     constructor(number_of_cards) {
         this.number_of_cards = this.obtain_card_num(number_of_cards)
         this.card_list = this.fill_deck()
+        this.size = this.card_list.length
     }
     get_number_of_cards() {
         return this.number_of_cards
+    }
+    draw_possible(){
+        return this.size > 0
     }
 
     obtain_card_num(num) {
         if (num > 13) return 13
         else return num
+    }
+    deal(agent){
+        agent.receive_card(this.card_list.pop())
+        this.size = this.card_list.length
     }
 
     fill_deck() {
