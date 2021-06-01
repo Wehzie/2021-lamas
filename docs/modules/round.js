@@ -13,18 +13,24 @@ class Round {
 
     start_round() {
         console.log("start round")
-        for (player in this.players) {
-            if (typeof Player == player.GetType()) {
+        this.players.forEach((player) => {
+            if (player instanceof Player) {
                 this.start_turn_player(player)
             } else {
                 this.start_turn_AI(player)
             }
-        }
+        })
+        console.log(`${this.players[0].name} has ${this.players[0].books}`)
+        console.log(`${this.players[1].name} has ${this.players[1].books}`)
+        console.log(`${this.players[2].name} has ${this.players[2].books}`)
+        console.log(`In this round ${this.obtained_books} books were obtained`)
+
     }
     get_new_books() {
         return this.obtained_books
     }
     start_turn_AI(ai) {
+        console.log(`${ai.name}'s turn`)
         let turn = true
         while (turn) {
             if (ai.has_cards) {
@@ -43,7 +49,7 @@ class Round {
     ai_ask_agent(ai) {
         // choose player to ask for cards
         let chosen_player = null
-        while (chosen_player != ai) {
+        while (chosen_player == ai || chosen_player == null) {
             chosen_player = this.players[randomFromTo(0, this.players.length)] // chose random player to ask
         }
         // choose card to ask chosen player for
@@ -55,7 +61,7 @@ class Round {
         }
         console.log(`${ai.name} asks ${chosen_player.name} if they have any ${value_of_card(chosen_card_value)}'s`)
         // ask other player for specific card that was chosen
-        if (chosen_player.has_specific_cards(chosen_card_value)) {
+        if (chosen_player.hand.how_many_of_value(chosen_card_value)!= 0) {
             this.obtained_books += chosen_player.give_cards(ai,chosen_card_value)
             console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${value_of_card(chosen_card_value)}'s and gives them to ${ai.name}`)
             console.log(`${ai.name} has another turn`)
@@ -93,7 +99,7 @@ class Round {
                 turn = this.player_ask_agent(player)
             }
         }
-        // console.log('finished turn')
+        console.log('finished turn')
     }
 
     player_ask_agent(player) {
@@ -108,12 +114,10 @@ class Round {
                 )
                 first = false
             } else {
-                // chosen_player_index = prompt(
-                //     "Invalid input, choose either the value 1 or 2\n1: AI1\n2:AI2"
-                // )
                 chosen_player_index = prompt(
-                    `what ${chosen_player_index}`
+                    "Invalid input, choose either the value 1 or 2\n1: AI1\n2:AI2"
                 )
+                // chosen_player_index = prompt(`what ${chosen_player_index}`)
             }
         }
 
@@ -155,27 +159,31 @@ class Round {
                 chosen_card_value == "Q" ||
                 chosen_card_value == "K"
             ) {
-                console.log(`${player.name} asks ${chosen_player.name} if they have any ${value_of_card(chosen_card_value)}'s`)
-
-                if (player.has_specific_cards(chosen_card_value) && chosen_player.has_specific_cards(chosen_card_value)) {
-                    console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${value_of_card(chosen_card_value)}'s and gives them to ${player.name}`)
-                    console.log(`${player.name} has another turn`)
-                    this.obtained_books += chosen_player.give_cards(
-                        player,
-                        chosen_card_value
-                    )
-                    return true
-                } else {
-                    // go fish
-                    console.log("GO FISH")
-                    if (this.deck.draw_possible()) {
-                        console.log(`${player.name} draws a card and finishes their turn`)
-                        this.deck.deal(player)
+                if(player.has_specific_cards(chosen_card_value)){
+                    console.log(`${player.name} asks ${chosen_player.name} if they have any ${value_of_card(chosen_card_value)}'s`)
+                
+                    if (chosen_player.has_specific_cards(chosen_card_value)) {
+                        console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${value_of_card(chosen_card_value)}'s and gives them to ${player.name}`)
+                        console.log(`${player.name} has another turn`)
+                        this.obtained_books += chosen_player.give_cards(
+                            player,
+                            chosen_card_value
+                        )
+                        return true
                     } else {
-                        console.log(`${player.name} finished their turn`)
-                        console.log(`${player.name} no card can be drawn because the deck is empty`)
+                        // go fish
+                        console.log("GO FISH")
+                        if (this.deck.draw_possible()) {
+                            console.log(`${player.name} draws a card and finishes their turn`)
+                            this.deck.deal(player)
+                        } else {
+                            console.log(`${player.name} finished their turn`)
+                            console.log(`${player.name} no card can be drawn because the deck is empty`)
+                        }
+                        return false // finish turn
                     }
-                    return false // finish turn
+                } else {
+                    continue
                 }
             }
         }

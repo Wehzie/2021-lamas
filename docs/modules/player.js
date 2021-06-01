@@ -36,7 +36,7 @@ class Agent {
         if (this.hand.size == 0) {
             this.has_cards = false
         }
-        this.books += obtained_books
+        agent.books += obtained_books
         return obtained_books
     }
 }

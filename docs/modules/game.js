@@ -35,14 +35,15 @@ class Game {
 
     start_game_loop(){
         let round_count = 1
+        console.log(this.total_books)
+        console.log(this.number_of_card_sets)
         while (this.total_books < this.number_of_card_sets) {
             console.log(`Round ${round_count}`)
             console.log(`${this.deck.size} cards left in deck`)
-            const new_round = new Round(this.deck, this.players)
-            new_round.start_turn_player(this.player)
-            new_round.start_turn_AI(this.AI1)
-            new_round.start_turn_AI(this.AI2)
+            const new_round = new Round(this.deck, this.players, this.number_of_card_sets)
+            new_round.start_round()
             this.total_books += new_round.get_new_books()
+            round_count ++
         }
         // all books have been achieved.
         let winner = this.get_winner(players)
