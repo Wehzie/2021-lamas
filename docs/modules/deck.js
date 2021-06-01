@@ -2,13 +2,11 @@ import { Card } from "./card.js"
 
 class Deck {
     constructor(number_of_cards) {
-        this.number_of_cards_ = this.obtain_card_num(number_of_cards)
+        this.number_of_cards = this.obtain_card_num(number_of_cards)
         this.card_list = this.fill_deck()
         this.size = this.card_list.length
     }
-    get number_of_cards() {
-        return this.number_of_cards_
-    }
+
     draw_possible() {
         return this.size > 0
     }
@@ -24,7 +22,7 @@ class Deck {
 
     fill_deck() {
         let cards = []
-        for (let i = 1; i <= this.number_of_cards_; i++) {
+        for (let i = 1; i <= this.number_of_cards; i++) {
             let newHeart = new Card(i, "hearts")
             let newDiamond = new Card(i, "diamonds")
             let newClub = new Card(i, "clubs")

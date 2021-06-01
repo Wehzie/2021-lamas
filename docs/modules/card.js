@@ -4,29 +4,7 @@ class Card {
         this.suit = suit
         this.colour = this.get_colour(suit)
     }
-    get_value() {
-        return this.value
-    }
-    get_suit() {
-        return this.suit
-    }
-    get_colour() {
-        return this.colour
-    }
-    value_of_card(value) {
-        switch (value) {
-            case 1:
-                return "A"
-            case 11:
-                return "J"
-            case 12:
-                return "Q"
-            case 13:
-                return "K"
-            default:
-                return `${value}`
-        }
-    }
+
 
     get_colour() {
         if (this.suit == "hearts" || this.suit == "diamonds") return "Red"
@@ -34,21 +12,35 @@ class Card {
     }
 
     print_card() {
-        let value = this.value_of_card(this.value)
+        let value = value_of_card(this.value)
         switch (this.suit) {
             case "hearts":
-                return `♡ ${value}`
+                return `${value}♡`
             case `diamonds`:
-                return `♢ ${value}`
+                return `${value}♢ `
             case "clubs":
-                return `♧ ${value}`
+                return `${value}♧`
             case "spades":
-                return `♤ ${value}`
+                return `${value}♤`
         }
     }
 }
 function test() {
     prompt("testing this crap")
 }
+function value_of_card(value) {
+    switch (value) {
+        case 1:
+            return "A"
+        case 11:
+            return "J"
+        case 12:
+            return "Q"
+        case 13:
+            return "K"
+        default:
+            return `${value}`
+    }
+}
 
-export { Card, test }
+export { Card, test , value_of_card}

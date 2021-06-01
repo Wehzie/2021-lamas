@@ -2,27 +2,42 @@
 
 class Hand {
     constructor() {
-        this.deck_ = null
-        this._size = 0
+        this.deck = null
+        this.size = 0
         this.ordered_array = null
     }
 
-    get size() {
-        return this.size
-    }
-    set deck(deck) {
-        console.log("helloo")
-        this.deck_ = deck
+    set init_deck(deck) {
+        this.deck = deck
         this.ordered_array = this.create_ordered_array()
     }
 
-    // set size(val){
-    //     this.size += val
-    // }
+    print_hand(){
+        let omitted_index = []
+        for (let i = 0; i < 4; i++){
+            let row = ''
+            for (let j= 0; j<13; j++){
+                if (i == 0 && this.ordered_array[j].length == 0){
+                    omitted_index.push(j)
+                }
+                if (!inList(j, omitted_index)){
+                    if (i < this.ordered_array[j].length){
+                        row = `${row}\t${this.ordered_array[j][i].print_card()}`
+                    } else {
+                        row = `${row}\t${' '}`
+                    }
+                }
+                
+            }
+            console.log(row)
+        }
+       
+    }
+
 
     create_ordered_array() {
         let ordered = []
-        for (let i = 0; i < this.deck_.number_of_cards; i++) {
+        for (let i = 0; i < this.deck.number_of_cards; i++) {
             let new_arr = []
             ordered.push(new_arr)
         }
@@ -41,7 +56,7 @@ class Hand {
     }
 
     check_if_book(card) {
-        set = this.ordered_array[card.value - 1]
+        let set = this.ordered_array[card.value - 1]
         if (set.length == 4) {
             return true
         }
@@ -53,17 +68,27 @@ class Hand {
         let amount = cards.length
         let empty = []
         this.ordered_array[value - 1] = empty
-        this._size -= amount
+        this.size -= amount
         return cards
     }
 
     query(value) {
-        if (this.ordered_array[value - 1].length > 0) {
+        if (this.ordered_array[value - 1].length != 0) {
             return true
         } else {
             return false
         }
     }
+    how_many_of_value(value){
+        return this.ordered_array[value - 1].length
+    }
 }
-
+function inList(value, array) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] == value) {
+            return true;
+        }
+    }
+    return false;
+    }
 export { Hand }

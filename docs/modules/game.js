@@ -9,25 +9,39 @@ class Game {
         this.deck = new Deck(number_of_card_sets)
         this.is_over = false
         this.total_books = 0
+        this.players = null
+        this.AI1 = new AI("1")
+        this.AI2 = new AI("2")
+        this.player = new Player("Gerald")
+        this.players = [this.player, this.AI1, this.AI2]
+        
     }
 
     initialize() {
         console.log("start round")
 
-        let AI1 = new AI("1")
-        let AI2 = new AI("2")
-        let player = new Player("test-player-name")
+
         //deal each player 7 cards
-        const players = [player, AI1, AI2]
         console.log("Players initialized.")
 
-        players.forEach((player) => {
+        this.players.forEach((player) => {
             console.log(player.name)
-            player.hand.deck = this.deck
+            player.hand.init_deck = this.deck
+            for(let i = 0; i<7; i++){
+                this.deck.deal(player)
+            }
         })
+    }
 
+    start_game_loop(){
+        let round_count = 1
         while (this.total_books < this.number_of_card_sets) {
-            const new_round = new Round(this.deck, players)
+            console.log(`Round ${round_count}`)
+            console.log(`${this.deck.size} cards left in deck`)
+            const new_round = new Round(this.deck, this.players)
+            new_round.start_turn_player(this.player)
+            new_round.start_turn_AI(this.AI1)
+            new_round.start_turn_AI(this.AI2)
             this.total_books += new_round.get_new_books()
         }
         // all books have been achieved.
