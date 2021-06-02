@@ -12,6 +12,9 @@ class Hand {
         this.ordered_array = this.create_ordered_array()
     }
 
+    has_cards(){
+        return this.size != 0
+    }
     print_hand(){
         let omitted_index = []
         for (let i = 0; i < 4; i++){
@@ -53,6 +56,7 @@ class Hand {
         for (card in current) if (card.suit == "diamonds") newSet.push(card)
         for (card in current) if (card.suit == "spades") newSet.push(card)
         this.ordered_array[card.value - 1] = newSet
+        this.size ++
     }
 
     check_if_book(card) {

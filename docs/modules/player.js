@@ -18,27 +18,30 @@ class Agent {
         this.hand.print_hand()
     }
 
+    //returns 1 when book is made
     receive_card(card) {
         this.hand.add_card(card)
         this.has_cards = true
         if (this.hand.check_if_book(card)) {
-            return true
+            this.hand.remove_cards(card.value)
+            this.books ++
+            return 1
         }
-        return false
+        return 0
     }
 
     give_cards(agent, value) {
         let cards = this.hand.remove_cards(value)
         let obtained_books = 0
         cards.forEach((card) => {
-            if (agent.receive_card(card)) {obtained_books += 1}
+            obtained_books += agent.receive_card(card)
         })
         if (this.hand.size == 0) {
             this.has_cards = false
         }
-        agent.books += obtained_books
         return obtained_books
     }
+
 }
 
 class Player extends Agent {

@@ -44,6 +44,8 @@ class Game {
             new_round.start_round()
             this.total_books += new_round.get_new_books()
             round_count ++
+            console.log(`#######BOOKS ${this.total_books}`)
+
         }
         // all books have been achieved.
         let winner = this.get_winner(players)

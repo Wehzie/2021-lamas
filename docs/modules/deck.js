@@ -16,8 +16,10 @@ class Deck {
         else return num
     }
     deal(agent) {
-        agent.receive_card(this.card_list.pop())
+        let books = 0
+        books += agent.receive_card(this.card_list.pop())
         this.size = this.card_list.length
+        return books
     }
 
     fill_deck() {
