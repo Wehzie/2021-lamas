@@ -48,15 +48,19 @@ class Game {
 
         }
         // all books have been achieved.
-        let winner = this.get_winner(players)
+        let winner = this.get_winner()
         console.log(`${winner.name} wins`)
     }
 
     get_winner(players) {
-        counts = []
-        for (i in Range(players.length)) {
-            counts.push(players[i].books)
+        let winner = null
+        let highest_books = 0
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i].books > highest_books)
+            winner = this.players[i]
+            highest_books = this.players[i].books 
         }
+        return winner
     }
 }
 

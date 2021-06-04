@@ -12,9 +12,7 @@ class Hand {
         this.ordered_array = this.create_ordered_array()
     }
 
-    has_cards(){
-        return this.size != 0
-    }
+
     print_hand(){
         let omitted_index = []
         for (let i = 0; i < 4; i++){
