@@ -1,5 +1,5 @@
 # Architecture
 
-IMG (draw.io)
+![The image was not found.](./docs/img/ARCHITECTURE.png "Architecture")
 
-DESCRIPTION
+## Overview
