@@ -1,0 +1,66 @@
+nav {
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+
+    overflow: hidden;
+    position: relative;
+
+    box-shadow: 0 0 0.5em white;
+}
+
+#navDesktop {
+    display: none;
+}
+
+#navMobile a {
+    padding: 1em 1em;
+    display: flex;
+}
+
+nav span {
+    display: block;
+    width: 1.5em;
+    height: 0.25em;
+
+    margin-bottom: 0.3em;
+    position: relative;
+
+    background: white;
+    border-radius: 0.1em;
+}
+
+#burger {
+    padding: 1em 1em;
+    display: block;
+    
+    background: darkturquoise;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#subLinks {
+    display: none;
+    background: darkturquoise;
+}
+
+#subLinks a {
+    display: block;
+}
+
+@media screen and (min-width: 24cm) {
+    #navMobile {
+        display: none;
+    }
+
+    #navDesktop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    height: 2em;
+    align-items: center;
+    }
+}

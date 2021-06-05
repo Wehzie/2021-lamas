@@ -1,11 +1,11 @@
 html {
     font-family: "Courier New", Courier, monospace;
-    color: white;
-    background-color: rgb(253, 199, 128);
+    color: rgb(88, 59, 59);
+    background-color: rgb(128, 253, 249);
 }
 
 .brokenLine {
-    font-size: 16vw;
+    font-size: 14vw;
 }
 
 .oneLine {
@@ -82,4 +82,44 @@ button {
     font-family: "Courier New", Courier, monospace;
 
     outline: none;
+}
+
+img {
+    display: block;
+    height: auto;
+    margin: auto;
+    max-width: 80%;
+}
+
+figcaption {
+    text-align: center;
+    font-weight: normal;
+}
+
+section {
+    text-align: justify;
+    margin: 0 auto;
+    width: 80%;
+    font-size: 0.5em;
+    font-weight: bold;
+}
+
+footer {
+    font-size: 0.5em;
+    font-weight: normal;
+}
+
+textarea {
+    display: block;
+    margin: auto;
+
+    border-radius: 1em;
+    border-color: darkturquoise;
+    background-color: white;
+    width: 80%;
+    color: rgb(88, 59, 59);
+    
+    opacity: 100%;
+    -webkit-text-fill-color: rgb(88, 59, 59);
+    -webkit-appearance: none;
 }
