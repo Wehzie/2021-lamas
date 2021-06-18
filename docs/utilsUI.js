@@ -10,19 +10,20 @@ function toggleNavBurger() {
     }
 }
 
+
 // override the console.log function to write to some user visible textArea 
-(function () {
-    const old = console.log
-    const logger = document.getElementById("logArea")
-    console.log = function () {
-        for (var i = 0; i < arguments.length; i++) {
-            old(arguments[i])
-            if (typeof arguments[i] == "object") {
-                logger.value += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + "\n"
-            } else {
-                logger.value += arguments[i] + "\n"
-            }
-            logger.scrollTop = logger.scrollHeight
-        }
-    }
-})()
+// (function () {
+//     const old = console.log
+//     const logger = document.getElementById("logArea")
+//     console.log = function () {
+//         for (var i = 0; i < arguments.length; i++) {
+//             old(arguments[i])
+//             if (typeof arguments[i] == "object") {
+//                 logger.value += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + "\n"
+//             } else {
+//                 logger.value += arguments[i] + "\n"
+//             }
+//             logger.scrollTop = logger.scrollHeight
+//         }
+//     }
+// })()

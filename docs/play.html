@@ -50,16 +50,29 @@
         </nav>
         <br>
 
-        <article>
+        <!-- log area -->
+        <!-- <article>
             <section>
                 <textarea id="logArea" rows="30" disabled></textarea>
             </section>
-        </article>
+        </article> -->
 
-        <footer>
-            <hr />
-            <a href="#nav">SCROLL UP</a>
-            <hr />
-        </footer>
+        <canvas id="canvas" width="1000" height="500" style="border:1px solid #000000;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+
+        <script>
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(0,0,750,375);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(1000, 500);
+            ctx.stroke();
+
+            
+
+        </script>
+
     </body>
 </html>
