@@ -102,13 +102,12 @@ class Player extends Agent {
             }
 
             if ((chosen_card_value > 0 ||
-                chosen_card_value < this.num_of_card_sets ||
-                chosen_card_value == "A" || chosen_card_value == "J" ||
-                chosen_card_value == "Q" || chosen_card_value == "K") &&
+                chosen_card_value < this.num_of_card_sets) &&
                 this.has_specific_cards(chosen_card_value)) {
                 break
             }
         }
+        return chosen_card_value
     }
 }
 
@@ -127,7 +126,6 @@ class AI extends Agent {
         }
         return chosen_card_value
     }
-
   
 }
 
