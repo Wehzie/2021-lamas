@@ -12,7 +12,7 @@ class Card {
     }
 
     print_card() {
-        let value = value_of_card(this.value)
+        let value = num2card_val(this.value)
         switch (this.suit) {
             case "hearts":
                 return `${value}♡`
@@ -28,7 +28,7 @@ class Card {
 function test() {
     prompt("testing this crap")
 }
-function value_of_card(value) {
+function num2card_val(num) {
     switch (value) {
         case 1:
             return "A"
@@ -39,8 +39,24 @@ function value_of_card(value) {
         case 13:
             return "K"
         default:
-            return `${value}`
+            return `${num}`
     }
 }
 
-export { Card, test , value_of_card}
+function card_val2num(card_val) {
+    switch (value) {
+        case 'A':
+            return 1
+        case 'J':
+            return 11
+        case 'Q':
+            return 12
+        case 'K':
+            return 13
+        default:
+            return parseInt(card_val)
+    }
+}
+
+
+export { Card, test , num2card_val}

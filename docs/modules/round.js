@@ -1,7 +1,7 @@
 import { Deck } from "./deck.js"
 import { Player, select_agent} from "./player.js"
 import { randomFromTo } from "./utils.js"
-import { value_of_card } from "./card.js"
+import { num2card_val } from "./card.js"
 
 class Round {
     constructor(deck, players, num_of_card_sets) {
@@ -46,12 +46,12 @@ class Round {
             let chosen_player = select_agent(this.players[0], get_other_ai(ai,this.players))
             if(chosen_player){
                 let chosen_card_value = ai.choose_card_value(this.num_of_card_sets)
-                console.log(`${ai.name} asks ${chosen_player.name} if they have any ${value_of_card(chosen_card_value)}'s`)
+                console.log(`${ai.name} asks ${chosen_player.name} if they have any ${num2card_val(chosen_card_value)}'s`)
                 // ask other player for specific card that was chosen
                 if (chosen_player.has_specific_cards(chosen_card_value)) {
                     chosen_player.show_hand()
                     this.obtained_books += chosen_player.give_cards(ai,chosen_card_value)
-                    console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${value_of_card(chosen_card_value)}'s and gives them to ${ai.name}`)
+                    console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${num2card_val(chosen_card_value)}'s and gives them to ${ai.name}`)
                     console.log(`${ai.name} has another turn`)
                     return true
                 } else {
@@ -93,9 +93,9 @@ class Round {
                 let chosen_player = player.choose_player(this.players)
                 chosen_player.show_hand()
                 let chosen_card_value = player.choose_card_value()
-                console.log(`${player.name} asks ${chosen_player.name} if they have any ${value_of_card(chosen_card_value)}'s`)
+                console.log(`${player.name} asks ${chosen_player.name} if they have any ${num2card_val(chosen_card_value)}'s`)
                 if (chosen_player.has_specific_cards(chosen_card_value)) {
-                    console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${value_of_card(chosen_card_value)}'s and gives them to ${player.name}`)
+                    console.log(`${chosen_player.name} has ${chosen_player.hand.how_many_of_value(chosen_card_value)} ${num2card_val(chosen_card_value)}'s and gives them to ${player.name}`)
                     console.log(`${player.name} has another turn`)
                     this.obtained_books += chosen_player.give_cards(player,chosen_card_value)
                     return true
