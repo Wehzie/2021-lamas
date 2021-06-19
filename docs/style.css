@@ -123,3 +123,7 @@ textarea {
     -webkit-text-fill-color: rgb(88, 59, 59);
     -webkit-appearance: none;
 }
+
+#buttonPanel {
+    background-color: rgb(227, 255, 253);
+}

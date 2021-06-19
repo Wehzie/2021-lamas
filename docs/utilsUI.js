@@ -10,20 +10,32 @@ function toggleNavBurger() {
     }
 }
 
+// generate a series of card choices based on the max rank
+// that a game of Go Fish is played with
+function genCardChoice(maxRank=5) {
+    outHTML = ""
+    cardSeries = "0 A 2 3 4 5 6 7 8 9 10 J Q K".split(" ")
+    cS = cardSeries
 
-// override the console.log function to write to some user visible textArea 
-// (function () {
-//     const old = console.log
-//     const logger = document.getElementById("logArea")
-//     console.log = function () {
-//         for (var i = 0; i < arguments.length; i++) {
-//             old(arguments[i])
-//             if (typeof arguments[i] == "object") {
-//                 logger.value += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + "\n"
-//             } else {
-//                 logger.value += arguments[i] + "\n"
-//             }
-//             logger.scrollTop = logger.scrollHeight
-//         }
-//     }
-// })()
+    for (let rank = 1; rank <= maxRank; rank++) {
+        outHTML += "<button id='card"+cS[rank]+"'>" + cS[rank] + "</button>\n"
+    }
+    return outHTML
+}
+
+// toggle the card menu between three different states
+function toggleCardMenu() {
+    bp = document.getElementById("buttonPanel")
+    modes = ["playerChoice", "cardChoice", "notYourTurn"]
+    mode = "cardChoice"
+    if (mode == "playerChoice") {
+        bp.innerHTML = `
+        <button>AI 1</button>
+        <button>AI 2</button>
+        `
+    } else if (mode == "cardChoice") {
+        bp.innerHTML = genCardChoice()
+    } else {
+        bp.innerHTML = "It's not your turn."
+    }
+}
