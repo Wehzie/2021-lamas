@@ -89,7 +89,7 @@ class Round {
     player_ask_agent(player) {
         // choose player to ask for cards
         if(player.has_cards){
-            if(this.players[1].has_cards || this.players[1].has_cards){
+            if(this.players[1].has_cards || this.players[2].has_cards){
                 let chosen_player = player.choose_player(this.players)
                 chosen_player.show_hand()
                 let chosen_card_value = player.choose_card_value()

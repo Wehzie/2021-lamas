@@ -29,7 +29,7 @@ function test() {
     prompt("testing this crap")
 }
 function num2card_val(num) {
-    switch (value) {
+    switch (num) {
         case 1:
             return "A"
         case 11:

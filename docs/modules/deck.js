@@ -17,7 +17,9 @@ class Deck {
     }
     deal(agent) {
         let books = 0
-        books += agent.receive_card(this.card_list.pop())
+        let card = this.card_list.pop()
+        books += agent.receive_card(card)
+        console.log(`player just  got a ${card}`)
         this.size = this.card_list.length
         return books
     }

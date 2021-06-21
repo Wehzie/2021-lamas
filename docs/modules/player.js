@@ -74,6 +74,7 @@ class Player extends Agent {
         }
         return players[chosen_player_index]
     }
+    
     choose_card_value(){
         let first = true
         let chosen_card_value = null
