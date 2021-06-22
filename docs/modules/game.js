@@ -3,34 +3,31 @@ import { Player, AI } from "./player.js"
 import { Round } from "./round.js"
 
 class Game {
-    constructor(number_of_card_sets) {
-        this.number_of_card_sets = number_of_card_sets
-        this.num_players = 3
-        this.deck = new Deck(number_of_card_sets)
+    constructor(max_rank) {
+        this.max_rank = max_rank
+        this.deck = new Deck(max_rank)
         this.is_over = false
         this.total_books = 0
-        this.players = null
         this.AI1 = new AI("1")
         this.AI2 = new AI("2")
         this.player = new Player("Gerald")
-        this.players = [this.player, this.AI1, this.AI2]
+        this.agents = [this.player, this.AI1, this.AI2]
         
     }
 
     initialize() {
         console.log("start round")
 
-
         //deal each player 7 cards
         console.log("Players initialized.")
+        size_of_initial_hand = obtain_dealt_card_number(this.max_rank)
 
-        this.players.forEach((player) => {
-            console.log(player.name)
-            player.hand.init_deck = this.deck
-            for(let i = 0; i<7; i++){
-                this.deck.deal(player)
+        this.agents.forEach((agent) => {
+            agent.init_knowledge(this.max_rank, this.agents)                
+            agent.hand.init_deck = this.deck
+            for(let i = 0; i < size_of_initial_hand; i++){
+                this.deck.deal(agent)
             }
-            
         })
     }
 
@@ -64,5 +61,8 @@ class Game {
         return winner
     }
 }
-
+function obtain_dealt_card_number(max_rank){
+    if (max_rank - 6 > 0) return max_rank - 6
+    else return max_rank
+}
 export { Game }

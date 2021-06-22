@@ -1,5 +1,6 @@
 import { Hand } from "./hand.js"
 import { randomFromTo } from "./utils.js"
+import { Knowledge } from "./knowledge.js"
 
 class Agent {
     constructor() {
@@ -7,11 +8,16 @@ class Agent {
         this.books = 0
         this.has_cards = false
         this.name = null
-        //this.Knowledge = new this.Knowledge();
+        //max_rank, agents, me
+        this.kn = null
     }
 
     has_specific_cards(value) {
         return this.hand.query(value)
+    }
+
+    init_knowledge(max_rank, agents){
+        this.kn = new Knowledge(max_rank, agents, this)
     }
 
 
