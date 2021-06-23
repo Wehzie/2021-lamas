@@ -1,6 +1,7 @@
 import { Hand } from "./hand.js"
 import { randomFromTo } from "./utils.js"
 import { Knowledge } from "./knowledge.js"
+import { num2card_val, card_val2num } from "./card.js"
 
 class Agent {
     constructor() {
@@ -62,23 +63,23 @@ class Player extends Agent {
         super()
         this.name = name
     }
-    choose_player(players){
-        let chosen_player_index = 0
+
+    select_agent(agent_list){
+        let chosen_agent_index = 0
         let first = true
-        console.log(players)
-        while (chosen_player_index != 1 && chosen_player_index != 2 && players[chosen_player_index].has_cards) {
+        while (chosen_agent_index != 1 && chosen_agent_index != 2 && agent_list[chosen_agent_index].has_cards) {
             if (first) {
-                chosen_player_index = prompt(
+                chosen_agent_index = prompt(
                     "Type the number of who you wish to ask\n1: AI1\n2:AI2"
                 )
                 first = false
             } else {
-                chosen_player_index = prompt(
+                chosen_agent_index = prompt(
                     "Invalid input, choose either the value 1 or 2\n1: AI1\n2:AI2"
                 )
             }
         }
-        return players[chosen_player_index]
+        return agent_list[chosen_agent_index]
     }
     
     choose_card_value(){
@@ -93,20 +94,7 @@ class Player extends Agent {
                 chosen_card_value = prompt(
                     "Invalid input, choose an int between 2 and 10 or the uppercase letters: A, J, Q, K\nMake sure you have that card value in your hand")
             }
-            switch (chosen_card_value) {
-                case "A":
-                    chosen_card_value = 1
-                    break
-                case "J":
-                    chosen_card_value = 11
-                    break
-                case "Q":
-                    chosen_card_value = 12
-                    break
-                case "K":
-                    chosen_card_value = 13
-                    break
-            }
+            chosen_card_value = card_val2num(chosen_card_value)
 
             if ((chosen_card_value > 0 ||
                 chosen_card_value < this.num_of_card_sets) &&
@@ -133,23 +121,28 @@ class AI extends Agent {
         }
         return chosen_card_value
     }
+    select_agent(agent_list){
+
+        let other_agents = []
+        agent_list.forEach(agent => {
+            if (agent != this) other_agents.push(agent)
+        });
+        let chosen_index = Math.round(Math.random())
+        let chosen_agent = other_agents[chosen_index]
+        let other_agent = other_agents[Math.abs(chosen_index - 1)]
+        console.log(chosen_agent)
+        console.log(other_agent)
+        if (chosen_agent.has_cards){
+            return chosen_agent
+        } else if (other_agent.has_cards){
+            return other_agent
+        } else {
+            return false
+        }
+    }
   
 }
 
 
-function  select_agent(agent1, agent2){
-    let agents = [agent1, agent2]
-    let chosen_index = Math.round(Math.random())
-    let chosen_agent = agents[chosen_index]
-    let other_agent = agents[Math.abs(chosen_index - 1)]
-    console.log(chosen_agent)
-    console.log(other_agent)
-    if (chosen_agent.has_cards){
-        return chosen_agent
-    } else if (other_agent.has_cards){
-        return other_agent
-    } else {
-        return false
-    }
-}
-export { Agent, Player, AI, select_agent}
+
+export { Agent, Player, AI}

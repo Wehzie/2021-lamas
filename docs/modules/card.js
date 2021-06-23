@@ -59,4 +59,4 @@ function card_val2num(card_val) {
 }
 
 
-export { Card, test , num2card_val}
+export { Card, test, num2card_val, card_val2num}

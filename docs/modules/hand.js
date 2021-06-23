@@ -81,6 +81,7 @@ class Hand {
             return false
         }
     }
+    
     how_many_of_value(value){
         return this.ordered_array[value - 1].length
     }
