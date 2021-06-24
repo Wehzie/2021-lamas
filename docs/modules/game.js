@@ -1,3 +1,4 @@
+import { Card } from "./card.js"
 import { Deck } from "./deck.js"
 import { Player, AI, Agent } from "./player.js"
 import { Round } from "./round.js"
@@ -11,6 +12,9 @@ class Game {
      * @param {BigInt} max_rank The maximum card rank the game is played with
      */
     constructor(max_rank, allow_human=true) {
+        this.round = null
+        this.round_count = 0            // the number of rounds played
+
         this.max_rank = max_rank        // the maximum card rank in the deck
         this.deck = new Deck(max_rank)  // filled card deck
         this.is_over = false            // wether a game is completed
@@ -29,8 +33,11 @@ class Game {
         } else {
             this.agents = [this.AI1, this.AI2, this.AI3]
         }
-        // 
         this.complete_agent_init()
+    }
+
+    set_new_round() {
+        self.round = new Round(this.deck, this.agents, this.max_rank)
     }
 
     complete_agent_init() {
@@ -52,27 +59,46 @@ class Game {
         console.log("Players initialized.")
     }
 
-    start_game_loop(){
+    // this is called on each button press
+    play_round(player_ai_choice, player_card_choice){
         /**
-         * Play rounds until the all books have been completed.
+         * Play a round
+         * Stop playing when all books have been completed
+         * 
+         * @param {AI} player_ai_choice     The agent the player wants to ask
+         * @param {Card} player_card_choice The card the player asks for 
          */
-        let round_count = 1
+        
         // the number of books that can be determined is equivalent ...
         // ... to the maximum card rank
-        while (this.total_books < this.max_rank) {
-            console.log(`Round ${round_count}`)
+        if (this.total_books == this.max_rank) {
+            let winner = this.get_winner()
+            console.log(`${winner.name} wins in round ${this.round_count}`)
+            this.is_over = true
+            return
+        }
+
+        // initialize a new round if the previous round was completed
+        if (this.round.round_complete == true) {
+            this.round_count ++
+            this.set_new_round()
+            console.log(`Round ${this.round_count}`)
             console.log(`${this.deck.size} cards left in deck`)
-            // initialize and start a new round
-            const new_round = new Round(this.deck, this.agents, this.max_rank)
-            new_round.start_round()
+        }
+        
+        // when the player turn is completed let the AIs play
+        if (this.round.turn_complete == true) {
+            // AIs take their turns
+
             // count how many books were collected during the round
-            this.total_books += new_round.get_new_books()
-            round_count ++
+            this.total_books += this.get_new_books()
             console.log(`total books obtained:${this.total_books}`)
         }
-        // all books have been achieved
-        let winner = this.get_winner()
-        console.log(`${winner.name} wins in round ${round_count}`)
+        
+        // a player takes a single turn
+        if (this.round.turn_complete == false) {
+            this.round.turn_complete = this.round.single_turn(player_ai_choice, player_card_choice)
+        }
     }
 
     get_winner() {

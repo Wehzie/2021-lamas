@@ -18,7 +18,7 @@ function genCardChoice(maxRank=13) {
     cS = cardSeries
 
     for (let rank = 1; rank <= maxRank; rank++) {
-        outHTML += "<button onclick='buttonToValue("+rank+")' id='card"+cS[rank]+"'>" + cS[rank] + "</button>\n"
+        outHTML += "<button onclick='button_set_card("+rank+")' id='card"+rank+"'>" + cS[rank] + "</button>\n"
     }
     return outHTML
 }
@@ -30,8 +30,8 @@ function toggleCardMenu() {
     mode = "cardChoice"
     if (mode == "playerChoice") {
         bp.innerHTML = `
-        <button>AI 1</button>
-        <button>AI 2</button>
+        <button onclick='button_set_agent(1)'>AI 1</button>
+        <button onclick='button_set_agent(2)'>AI 2</button>
         `
     } else if (mode == "cardChoice") {
         bp.innerHTML = genCardChoice()
@@ -40,7 +40,15 @@ function toggleCardMenu() {
     }
 }
 
-// called by a button with some value
-function buttonToValue(val) {
-    return val
+//1-2
+let chosen_agent = null
+function button_set_agent(val) {
+    chosen_agent = val
+    // further processing
+}
+
+//1-13
+let chosen_card = null
+function button_set_card(val) {
+    chosen_card = val
 }

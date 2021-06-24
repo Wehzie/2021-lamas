@@ -10,10 +10,18 @@ class Round {
         this.player = this.agents[0]
         this.AI1 = this.agents[1]
         this.AI2 = this.agents[2]
+        this.round_complete = false
+        this.turn_complete = true
     }
 
-    start_round() {
-        // console.log("start round")
+    start_round(player_ai_choice, player_card_choice) {
+        /**
+         * A round consists of at least three turns; one per agent.
+         * An agent may take an extra turn whenever receiving a card from another agent.
+         * 
+         * @param {AI} player_ai_choice     The agent the player wants to ask
+         * @param {Card} player_card_choice The card the player asks for 
+         */
         this.agents.forEach((agent) => {
             this.start_turn(agent)
         })
@@ -21,22 +29,30 @@ class Round {
         console.log(`${this.AI1.name} has ${this.AI1.books}`)
         console.log(`${this.AI2.name} has ${this.AI2.books}`)
         console.log(`In this round ${this.obtained_books} books were obtained`)
-
     }
+
     get_new_books() {
         return this.obtained_books
     }
+
     start_turn(agent) {
+        /**
+         * An agent's turn consists of a series of single turns.
+         */
         console.log(`${agent.name}'s turn`)
         let turn = true
         while (turn) {
             agent.show_hand()
             turn = this.single_turn(agent)
         }
-
     }
 
     single_turn(me) {
+        /**
+         * A single turn played by an agent
+         * Multiple single turns may be played consecutively by the same agent
+         * @returns {boolean} True when another single turn is to be played
+         */
         if(me.has_cards){
             let chosen_agent = me.select_agent(this.agents)
             console.log(`${me.name} choses ${chosen_agent.name}`)
