@@ -1,7 +1,4 @@
-import { Deck } from "./deck.js"
-import { Player} from "./player.js"
 import { num2card_val } from "./card.js"
-const BOOK = -100
 const QUERY = -50
 
 class Round {

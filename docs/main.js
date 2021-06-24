@@ -1,10 +1,8 @@
 import { Game } from "./modules/game.js"
 
 function startGame() {
-    const maxRank = document.getElementById("maxRank")
-    console.log(Number(maxRank.value))
-    const game = new Game(Number(maxRank.value))
-    game.initialize()
+    const maxRank = Number(13)
+    const game = new Game(maxRank)
     game.start_game_loop()
     game.get_winner()
 }

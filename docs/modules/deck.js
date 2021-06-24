@@ -15,7 +15,13 @@ class Deck {
         if (num > 13) return 13
         else return num
     }
+
     deal(agent) {
+        /**
+         * Deal a card from the top of the deck to a player
+         * @param {Agent} agent The agent receiving a card
+         * @return {int}        1 if the player got a book from receiving a new card
+         */
         let books = 0
         let card = this.card_list.pop()
         books += agent.receive_card(card)

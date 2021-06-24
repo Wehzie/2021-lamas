@@ -7,7 +7,6 @@ var second_order = 0
 for (let match = 0; match < 10000; match++){
     
     const game = new Game(maxRank)
-    game.initialize()
     game.start_game_loop()
     let winner = game.get_winner()
     

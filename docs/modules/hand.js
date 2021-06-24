@@ -14,10 +14,13 @@ class Hand {
 
 
     print_hand(){
+        /**
+         * Print a hand
+         */
         let omitted_index = []
         for (let i = 0; i < 4; i++){
             let row = ''
-            for (let j= 0; j<13; j++){
+            for (let j=0; j<13; j++){
                 if (i == 0 && this.ordered_array[j].length == 0){
                     omitted_index.push(j)
                 }
@@ -37,6 +40,9 @@ class Hand {
 
 
     create_ordered_array() {
+        /**
+         * @return {Array}  Empty 2D array
+         */
         let ordered = []
         for (let i = 0; i < this.deck.number_of_cards; i++) {
             let new_arr = []
