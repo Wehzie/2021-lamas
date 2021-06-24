@@ -2,6 +2,7 @@ import { Hand } from "./hand.js"
 import { randomFromTo } from "./utils.js"
 import { Knowledge } from "./knowledge.js"
 import { num2card_val, card_val2num } from "./card.js"
+import { pick_agent, pick_card } from "./strat.js"
 
 class Agent {
     constructor() {
@@ -36,7 +37,7 @@ class Agent {
             this.books ++
             if (this.hand.size == 0) {
                 this.has_cards = false
-                console.log(`${this.name} has not more cards`)
+                console.log(`${this.name} has no more cards`)
             }
             return 1
         }
@@ -107,38 +108,17 @@ class Player extends Agent {
 }
 
 class AI extends Agent {
-    constructor(number) {
+    constructor(number, strat) {
         super()
+        this.strat = strat
         this.number = number
         this.name = `AI ${this.number}`
     }
-    choose_card_value(num_of_card_sets){
-        let chosen_card_value = null
-        let has_chosen_card = false
-        while (!has_chosen_card) {
-            chosen_card_value = randomFromTo(1, num_of_card_sets + 1) // chose random player to ask
-            has_chosen_card = this.has_specific_cards(chosen_card_value)
-        }
-        return chosen_card_value
+    choose_card_value(max_rank, chosen_agent){
+        return pick_card(this.strat, this,  max_rank, chosen_agent)
     }
     select_agent(agent_list){
-
-        let other_agents = []
-        agent_list.forEach(agent => {
-            if (agent != this) other_agents.push(agent)
-        });
-        let chosen_index = Math.round(Math.random())
-        let chosen_agent = other_agents[chosen_index]
-        let other_agent = other_agents[Math.abs(chosen_index - 1)]
-        console.log(chosen_agent)
-        console.log(other_agent)
-        if (chosen_agent.has_cards){
-            return chosen_agent
-        } else if (other_agent.has_cards){
-            return other_agent
-        } else {
-            return false
-        }
+        return pick_agent(this.strat, this, agent_list)
     }
   
 }

@@ -44,7 +44,7 @@ function num2card_val(num) {
 }
 
 function card_val2num(card_val) {
-    switch (value) {
+    switch (card_val) {
         case 'A':
             return 1
         case 'J':
@@ -54,7 +54,7 @@ function card_val2num(card_val) {
         case 'K':
             return 13
         default:
-            return parseInt(card_val)
+            return Number(card_val)
     }
 }
 

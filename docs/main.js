@@ -8,6 +8,4 @@ function startGame() {
     game.start_game_loop()
     game.get_winner()
 }
-//bug, when having less that all cards, make sure to deal less cards
-
 document.getElementById("startGame").addEventListener('click', startGame);
