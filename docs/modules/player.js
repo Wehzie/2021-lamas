@@ -1,5 +1,4 @@
 import { Hand } from "./hand.js"
-import { randomFromTo } from "./utils.js"
 import { Knowledge } from "./knowledge.js"
 import { num2card_val, card_val2num } from "./card.js"
 import { pick_agent, pick_card } from "./strat.js"
