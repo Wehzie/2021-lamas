@@ -60,6 +60,8 @@ class Game {
         console.log("Players initialized.")
     }
 
+    
+
     // this is called on each button press
     play_round(player_ai_choice, player_card_choice){
         /**
@@ -69,24 +71,13 @@ class Game {
          * @param {BigInt} player_ai_choice     The agent the player wants to ask
          * @param {BigInt} player_card_choice The card the player asks for 
          */
-        
 
         // is the game over?
-        // the number of books that can be determined is equivalent ...
-        // ... to the maximum card rank
-
-        // if (this.round != null) {
-        //     console.log('round complete?', this.round.player_turn_complete )
-        //     console.log('draw card?',this.round.draw_card )
-        // }
         if (this.total_books == this.max_rank) {
             let winner = this.get_winner()
             console.log(`${winner.name} wins in round ${this.round_count}`)
             this.is_over = true
             return
-        }
-        if (player_ai_choice == 'deal'){
-            console.log('####### ', 'round complete?',this.round.round_complete, 'player complete?', this.round.player_turn_complete ,'draw card?',this.round.draw_card  )
         }
 
         // initialize a new round if the previous round was completed
@@ -97,7 +88,6 @@ class Game {
             console.log(`${this.deck.size} cards left in deck`)
             console.log('\n')
         }
-        
         // when the player turn is completed let the AIs play
         if (this.round.player_turn_complete == true) {
             // AIs take their turns
@@ -107,7 +97,7 @@ class Game {
                     this.round.start_turn(agent)
                 }
             })
-        
+            
             // count how many books were collected during the round
             this.total_books += this.round.get_new_books()
             console.log(`total books obtained:${this.total_books}`)
@@ -116,25 +106,36 @@ class Game {
             this.round.round_complete = true
             this.player_turn_complete = false
         }
-
+    
         
         // a player takes a single turn
         if (this.round.player_turn_complete == false && this.round.draw_card == false) {
             console.log("Player takes a single turn.")
             let chosen_ai = this.agents[Number(player_ai_choice)]
-            this.round.draw_card = Boolean(this.round.player_single_turn(this.player, chosen_ai, player_card_choice))
-            // console.log(this.round.draw_card)
-            if(this.round.draw_card) toggleCardMenu(2)
-            else toggleCardMenu(0)
+            this.player.show_hand()
+            if(!this.check_if_skip()){
+                this.round.draw_card = Boolean(this.round.player_single_turn(this.player, chosen_ai, player_card_choice))
+                if(this.round.draw_card) {
+                    toggleCardMenu(2)
+                    console.log(`round complete ${this.round.round_complete} \nturn complete: ${this.player_turn_complete} \ndeal?${this.round.draw_card}`)
+                }
+                else if (!this.check_if_skip()) toggleCardMenu(0)
+            }
+            this.round.draw_card = true
+            toggleCardMenu(2)
+            
             
         }
 
         // draw a card, finished turn
         if (this.round.player_turn_complete == false && this.round.draw_card == true) {
             console.log("Player finish your turn by drawing a card.")
-            this.round.player_turn_complete = Boolean(this.round.draw_end_turn(this.player))
-            
+            this.round.player_turn_complete = true
+            this.round.draw_end_turn(this.player)
+            this.round.draw_card = false
         }
+
+     
     }
 
     get_winner() {
@@ -154,6 +155,20 @@ class Game {
         }
         return winner
     }
+
+    // when the player has no cards on hand
+    // or when no opponent has cards on hand
+    // true means skip a turn
+    check_if_skip(){
+        if(!this.player.has_cards) return true
+        
+        this.agents.forEach(agent => {
+            if (agent instanceof AI){
+                if (agent.hand.has_cards) return false
+            }
+        })
+        return true
+    }
 }
 
 function obtain_dealt_card_number(max_rank){
@@ -163,5 +178,7 @@ function obtain_dealt_card_number(max_rank){
     if (max_rank - 6 > 0) return max_rank - 6
     else return max_rank
 }
+
+
 
 export { Game }

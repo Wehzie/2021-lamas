@@ -46,7 +46,7 @@ function disable_invalid_AI() {
             ai_button.removeAttribute("disabled")
             // show disabled when ai has cards
             if (!agent.has_cards) {
-                ai_button.setAttribute("disabled")
+                ai_button.setAttribute("disabled","")
             }
         }
     });
@@ -54,7 +54,7 @@ function disable_invalid_AI() {
 
 // toggle the card menu between three different states
 function toggleCardMenu(mode=0) {
-    console.log(`Menu Mode: ${mode}`)
+    //console.log(`Menu Mode: ${mode}`)
     const ai_c = document.getElementById("aiChoice")
     const card_c = document.getElementById("cardChoice")
     const draw_end = document.getElementById("drawEnd")
@@ -72,6 +72,7 @@ function toggleCardMenu(mode=0) {
         draw_end.setAttribute("hidden", "")
     }
     else if (mode == 1) { // card select
+        console.log('it is your turn')
         disable_invalid_cards()
         ai_c.setAttribute("hidden", "")
         card_c.removeAttribute("hidden")
@@ -113,7 +114,6 @@ document.getElementById("cardChoice").innerHTML = genCardChoice()
 for (let rank = 1; rank <= 13; rank++) {
     document.getElementById("card"+rank).addEventListener('click', function(){button_set_card(rank)});
     document.getElementById("card"+rank).addEventListener('click', button_play_round);
-//    document.getElementById("card"+rank).addEventListener('click', toggleCardMenu);
 }
 
 //start game button

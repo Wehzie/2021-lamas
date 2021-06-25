@@ -43,7 +43,7 @@ class Round {
         console.log(`${agent.name}'s turn`)
         let turn = true
         while (turn) {
-            // agent.show_hand()
+            agent.show_hand()
             turn = this.single_turn(agent)
         }
     }
@@ -62,16 +62,6 @@ class Round {
         //people know player asked for chosen card
         update_knowledge_all(me, this.agents, chosen_card_value, QUERY)
 
-        // // player has no cards and needs to draw
-        // if (chosen_card_value == "draw" || chosen_agent == "draw") {
-        //     // draw and then take another turn
-        //     if(this.draw_end_turn(me)) return true
-        //     // the deck is empty, so you can't take a turn
-        //     return false
-            
-        // }
-        // when the asked agent has the card
-        // let everyone know that the card moved hands
         if(chosen_agent.has_specific_cards(chosen_card_value)) {
             let chosen_card_amount = chosen_agent.hand.how_many_of_value(chosen_card_value)
             console.log(`${chosen_agent.name} has ${chosen_card_amount} ${num2card_val(chosen_card_value)}'s and gives them to ${me.name}`)
@@ -103,7 +93,7 @@ class Round {
             let chosen_agent = me.select_agent(this.agents)
             console.log(`${me.name} choses ${chosen_agent.name}`)
             if(chosen_agent){
-                // chosen_agent.show_hand()
+                chosen_agent.show_hand()
                 let chosen_card_value = me.choose_card_value(this.num_of_card_sets, chosen_agent)
                 console.log(`${me.name} asks ${chosen_agent.name} if they have any ${num2card_val(chosen_card_value)}'s`)
                 // console.log(`KNOWLEDGE UPDATE: QUERY:`)
