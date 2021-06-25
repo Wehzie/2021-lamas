@@ -72,14 +72,6 @@ class Game {
          * @param {BigInt} player_card_choice The card the player asks for 
          */
 
-        // is the game over?
-        if (this.total_books == this.max_rank) {
-            let winner = this.get_winner()
-            console.log(`${winner.name} wins in round ${this.round_count}`)
-            this.is_over = true
-            return
-        }
-
         // initialize a new round if the previous round was completed
         if (this.round_count == 0 || this.round.round_complete == true) {
             this.round_count ++
@@ -101,7 +93,9 @@ class Game {
             // count how many books were collected during the round
             this.total_books += this.round.get_new_books()
             console.log(`total books obtained:${this.total_books}`)
-
+            if(this.check_if_over()){
+                return
+            }
             // give back control to the player
             this.round.round_complete = true
             this.player_turn_complete = false
@@ -136,6 +130,16 @@ class Game {
         }
 
      
+    }
+
+    check_if_over(){
+        if (this.total_books == this.max_rank) {
+            let winner = this.get_winner()
+            console.log(`${winner.name} wins in round ${this.round_count}`)
+            this.is_over = true
+            return true
+        }
+        return false
     }
 
     get_winner() {

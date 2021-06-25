@@ -35,7 +35,32 @@ class Hand {
             }
             console.log(row)
         }
-       
+    }
+
+    get_hand_str(){
+        /**
+         * Return hand as string
+         */
+        
+        let out = ''
+        let omitted_index = []
+        for (let i = 0; i < 4; i++){
+            let row = ''
+            for (let j = 0; j < 13; j++){
+                if (i == 0 && this.ordered_array[j].length == 0){
+                    omitted_index.push(j)
+                }
+                if (!inList(j, omitted_index)){
+                    if (i < this.ordered_array[j].length){
+                        row = `${row}\t${this.ordered_array[j][i].print_card()}`
+                    } else {
+                        row = `${row}\t${' '}`
+                    }
+                }
+            }
+            out += row + "\n"
+        }
+        return out
     }
 
 

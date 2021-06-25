@@ -46,14 +46,43 @@ function disable_invalid_AI() {
             ai_button.removeAttribute("disabled")
             // show disabled when ai has cards
             if (!agent.has_cards) {
-                ai_button.setAttribute("disabled","")
+                ai_button.setAttribute("disabled", "")
             }
         }
     });
 }
 
+function update_hand() {
+    let hand = game.player.hand.get_hand_str()
+    document.getElementById("playerHand").innerText = hand
+}
+
+function update_hand2() {
+    let hand = game.player.hand.ordered_array
+    if (hand == undefined) return
+    //let value = null
+    //if (col<hand[row].length) val = hand[row][col]
+    //else val = ' '
+
+
+    let table = document.getElementById("playerHand2")
+    for (let col = 0; col < hand.length; col++) {
+        for (let row = 0; row < hand[col].length; row++) {
+            let value = hand[col][row].print_card()
+            console.log(value)
+            if (value != undefined) {
+                let r = table.getElementsByTagName("tr")[row+1]
+                let d = r.insertCell(-1)
+                d.innerHTML = value
+            }
+        }
+    }
+}
+
 // toggle the card menu between three different states
 function toggleCardMenu(mode=0) {
+    update_hand()
+    update_hand2()
     //console.log(`Menu Mode: ${mode}`)
     const ai_c = document.getElementById("aiChoice")
     const card_c = document.getElementById("cardChoice")

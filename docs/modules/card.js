@@ -20,7 +20,7 @@ class Card {
             case "hearts":
                 return `${value}♡`
             case `diamonds`:
-                return `${value}♢ `
+                return `${value}♢`
             case "clubs":
                 return `${value}♧`
             case "spades":
