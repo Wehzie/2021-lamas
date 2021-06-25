@@ -1,3 +1,4 @@
+
 //toggle links. none->block, block->none
 function toggleNavBurger() {
     const subLinks = document.getElementById("subLinks")
@@ -23,32 +24,41 @@ function genCardChoice(maxRank=13) {
     return outHTML
 }
 
+let mode = 0
+let first_round = true
+
 // toggle the card menu between three different states
 function toggleCardMenu() {
+    // after the first toggle remove the event listener
+    if (first_round) {
+        document.getElementById("startGame").remove()
+        first_round = false
+    }
     bp = document.getElementById("buttonPanel")
-    modes = ["playerChoice", "cardChoice", "notYourTurn"]
-    mode = "cardChoice"
-    if (mode == "playerChoice") {
+    if (mode == 0) {
         bp.innerHTML = `
         <button onclick='button_set_agent(1)'>AI 1</button>
         <button onclick='button_set_agent(2)'>AI 2</button>
         `
-    } else if (mode == "cardChoice") {
+    } else if (mode == 1) {
         bp.innerHTML = genCardChoice()
-    } else {
+    } /*else {
         bp.innerHTML = "It's not your turn."
-    }
+    }*/
+    mode = (mode + 1) % 2
 }
 
 //1-2
 let chosen_agent = null
 function button_set_agent(val) {
     chosen_agent = val
+    toggleCardMenu()
     // further processing
 }
 
 //1-13
 let chosen_card = null
 function button_set_card(val) {
+    toggleCardMenu()
     chosen_card = val
 }

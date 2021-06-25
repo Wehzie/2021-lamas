@@ -47,6 +47,53 @@ class Round {
         }
     }
 
+
+    // draw and end the player turn
+    draw_end_turn(me) {
+        if(this.deck.draw_possible()){
+            this.obtained_books += this.deck.deal(me)
+            reset_0s(me, this.agents)
+            return true
+        }
+        return false
+    }
+
+    player_single_turn(me, chosen_agent, chosen_card_value){
+        //people know player asked for chosen card
+        update_knowledge_all(me, this.agents, chosen_card_value, QUERY)
+
+        // player has no cards and needs to draw
+        if (chosen_card_value == "draw" || chosen_agent == "draw") {
+            // draw and then take another turn
+            if(this.draw_end_turn(me)) return true
+            // the deck is empty, so you can't take a turn
+            return false
+            
+        }
+        // when the asked agent has the card
+        // let everyone know that the card moved hands
+        else if(chosen_agent.has_specific_cards(chosen_card_value)) {
+            let chosen_card_amount = chosen_agent.hand.how_many_of_value(chosen_card_value)
+            console.log(`${chosen_agent.name} has ${chosen_card_amount} ${num2card_val(chosen_card_value)}'s and gives them to ${me.name}`)
+            update_knowledge_all(me, this.agents,  chosen_card_value, chosen_card_amount)
+            update_knowledge_all(chosen_agent, this.agents,  chosen_card_value, -1 * chosen_card_amount)
+            // check whether a book was formed
+            this.obtained_books += chosen_agent.give_cards(me, chosen_card_value)
+            console.log(`${me.name} has another turn`)
+            // the player may take another single turn
+            return true
+        }
+        // asked agent doesn't have the card
+        else {
+            console.log("GO FISH")
+            // everyone knows that the asked person doesn't have the card
+            update_knowledge_all(chosen_agent, this.agents,  chosen_card_value, 0)
+            // the agent shouldn't take another card
+            this.draw_end_turn(me)
+            return false
+        }
+    }
+
     single_turn(me) {
         /**
          * A single turn played by an agent
@@ -118,7 +165,7 @@ function update_knowledge_all(subject, agent_list, card_val, amount){
     })
 }
 
-function reset_0s(subject ,agent_list){
+function reset_0s(subject, agent_list){
     agent_list.forEach(agent => {
         agent.kn.reset_unknowns(subject)
     })

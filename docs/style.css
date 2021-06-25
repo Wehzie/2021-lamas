@@ -69,21 +69,6 @@ hr {
     padding: 0;
 }
 
-button {
-    background-color: rgb(65, 224, 208);
-    color: white;
-    border: 0.2em solid rgb(138, 40, 230);
-    border-radius: 12%;
-    padding: 1em 1em;
-
-    text-align: center;
-    display: inline-block;
-    font-size: 1em;
-    font-family: "Courier New", Courier, monospace;
-
-    outline: none;
-}
-
 img {
     display: block;
     height: auto;

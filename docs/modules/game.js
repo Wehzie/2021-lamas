@@ -65,10 +65,13 @@ class Game {
          * Play a round
          * Stop playing when all books have been completed
          * 
-         * @param {AI} player_ai_choice     The agent the player wants to ask
-         * @param {Card} player_card_choice The card the player asks for 
+         * @param {BigInt} player_ai_choice     The agent the player wants to ask
+         * @param {BigInt} player_card_choice The card the player asks for 
          */
-        
+        console.log(player_ai_choice, player_card_choice)
+        let chosen_ai = this.agents[Number(player_ai_choice)]
+
+
         // is the game over?
         // the number of books that can be determined is equivalent ...
         // ... to the maximum card rank
@@ -108,10 +111,7 @@ class Game {
         // a player takes a single turn
         if (this.round.player_turn_complete == false) {
             console.log("Player takes a single turn.")
-            //this.round.player_turn_complete = this.round.single_turn(player_ai_choice, player_card_choice)
-
-            // the player finished one turn
-            this.round.player_turn_complete = true
+            this.round.player_turn_complete = Boolean(this.round.player_single_turn(this.player, chosen_ai, player_card_choice))
         }
     }
 
