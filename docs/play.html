@@ -13,8 +13,8 @@
         <link rel="stylesheet" href="style.css" />
         <link rel="stylesheet" href="styleNav.css" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#x1F41F;</text></svg>">
-        <script defer src="utilsUI.js"></script>
-        <script defer type="module" src="main.js"></script>
+        <script type="module" src="utilsUI.js"></script>
+        <script type="module" src="main.js"></script>
         <!-- for the game use charset="utf-8" -->
     </head>
 
@@ -63,8 +63,8 @@
 
         <div id="buttonPanel">
             <div id="aiChoice" hidden>
-                <button onclick="button_set_agent(1)">AI 1</button>
-                <button onclick="button_set_agent(2)">AI 2</button>
+                <button id="AI1">AI 1</button>
+                <button id="AI2"">AI 2</button>
             </div>
             <div id="cardChoice" hidden></div>
         </div>
