@@ -11,7 +11,7 @@ class Round {
         this.AI1 = this.agents[1]
         this.AI2 = this.agents[2]
         this.round_complete = false
-        this.turn_complete = true
+        this.player_turn_complete = false
     }
 
     start_round(player_ai_choice, player_card_choice) {

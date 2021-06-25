@@ -37,7 +37,7 @@ class Game {
     }
 
     set_new_round() {
-        self.round = new Round(this.deck, this.agents, this.max_rank)
+        this.round = new Round(this.deck, this.agents, this.max_rank)
     }
 
     complete_agent_init() {
@@ -69,6 +69,7 @@ class Game {
          * @param {Card} player_card_choice The card the player asks for 
          */
         
+        // is the game over?
         // the number of books that can be determined is equivalent ...
         // ... to the maximum card rank
         if (this.total_books == this.max_rank) {
@@ -79,7 +80,7 @@ class Game {
         }
 
         // initialize a new round if the previous round was completed
-        if (this.round.round_complete == true) {
+        if (this.round_count == 0 || this.round.round_complete == true) {
             this.round_count ++
             this.set_new_round()
             console.log(`Round ${this.round_count}`)
@@ -87,17 +88,30 @@ class Game {
         }
         
         // when the player turn is completed let the AIs play
-        if (this.round.turn_complete == true) {
+        if (this.round.player_turn_complete == true) {
             // AIs take their turns
-
+            console.log("AIs taking turns.")
+            this.agents.forEach(agent => {
+                if (agent instanceof AI){
+                    this.round.start_turn(agent)
+                }
+            })
+        
             // count how many books were collected during the round
-            this.total_books += this.get_new_books()
+            this.total_books += this.round.get_new_books()
             console.log(`total books obtained:${this.total_books}`)
+
+            // give back control to the player
+            this.player_turn_complete = false
         }
         
         // a player takes a single turn
-        if (this.round.turn_complete == false) {
-            this.round.turn_complete = this.round.single_turn(player_ai_choice, player_card_choice)
+        if (this.round.player_turn_complete == false) {
+            console.log("Player takes a single turn.")
+            //this.round.player_turn_complete = this.round.single_turn(player_ai_choice, player_card_choice)
+
+            // the player finished one turn
+            this.round.player_turn_complete = true
         }
     }
 
