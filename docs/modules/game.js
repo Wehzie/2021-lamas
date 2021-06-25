@@ -10,12 +10,12 @@ class Game {
         this.deck = new Deck(max_rank)
         this.is_over = false
         this.total_books = 0
-        this.AI1 = new AI("1",possible_strats[2])
+        this.AI1 = new AI("1",possible_strats[3])
         this.AI2 = new AI("2", possible_strats[3])
-        this.AI3 = new AI("3", possible_strats[1])
+        this.AI3 = new AI("3", possible_strats[3])
         this.player = new Player("Gerald")
-        // this.agents = [this.AI1, this.AI2, this.AI3]
-        this.agents = [this.player, this.AI1, this.AI2]
+        this.agents = [this.AI1, this.AI2, this.AI3]
+        // this.agents = [this.player, this.AI1, this.AI2]
         
     }
 
@@ -58,7 +58,7 @@ class Game {
             winner = this.agents[i]
             highest_books = this.agents[i].books 
         }
-        return winner.number
+        return winner
     }
 }
 
