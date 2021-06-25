@@ -52,8 +52,6 @@
 
         <button id="startGame">Start Game</button>
         <br>
-        <button id="takeTurn">Take Turn</button>
-        <br>
         <button id="drawEnd">Draw and end End Turn</button>
 
         <article>
@@ -64,7 +62,11 @@
         <br>
 
         <div id="buttonPanel">
-            Start the game!
+            <div id="aiChoice" hidden>
+                <button onclick="button_set_agent(1)">AI 1</button>
+                <button onclick="button_set_agent(2)">AI 2</button>
+            </div>
+            <div id="cardChoice" hidden></div>
         </div>
 
     </body>

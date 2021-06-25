@@ -19,8 +19,6 @@ function button_play_round() {
 
 document.getElementById("startGame").addEventListener('click', toggleCardMenu);
 
-document.getElementById("takeTurn").addEventListener('click', button_play_round);
-
-
 for (let rank = 1; rank <= 13; rank++) {
+    document.getElementById("card"+rank).addEventListener('click', button_play_round);
 }
