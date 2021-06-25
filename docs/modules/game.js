@@ -2,6 +2,7 @@ import { Card } from "./card.js"
 import { Deck } from "./deck.js"
 import { Player, AI, Agent } from "./player.js"
 import { Round } from "./round.js"
+import { toggleCardMenu } from "./../main.js"
 
 // possible strategies an AI can take
 const possible_strats = ['random', 'high card', 'first order', 'second order']
@@ -68,18 +69,24 @@ class Game {
          * @param {BigInt} player_ai_choice     The agent the player wants to ask
          * @param {BigInt} player_card_choice The card the player asks for 
          */
-        console.log(player_ai_choice, player_card_choice)
-        let chosen_ai = this.agents[Number(player_ai_choice)]
-
+        
 
         // is the game over?
         // the number of books that can be determined is equivalent ...
         // ... to the maximum card rank
+
+        // if (this.round != null) {
+        //     console.log('round complete?', this.round.player_turn_complete )
+        //     console.log('draw card?',this.round.draw_card )
+        // }
         if (this.total_books == this.max_rank) {
             let winner = this.get_winner()
             console.log(`${winner.name} wins in round ${this.round_count}`)
             this.is_over = true
             return
+        }
+        if (player_ai_choice == 'deal'){
+            console.log('####### ', 'round complete?',this.round.round_complete, 'player complete?', this.round.player_turn_complete ,'draw card?',this.round.draw_card  )
         }
 
         // initialize a new round if the previous round was completed
@@ -88,6 +95,7 @@ class Game {
             this.set_new_round()
             console.log(`Round ${this.round_count}`)
             console.log(`${this.deck.size} cards left in deck`)
+            console.log('\n')
         }
         
         // when the player turn is completed let the AIs play
@@ -105,13 +113,27 @@ class Game {
             console.log(`total books obtained:${this.total_books}`)
 
             // give back control to the player
+            this.round.round_complete = true
             this.player_turn_complete = false
         }
+
         
         // a player takes a single turn
-        if (this.round.player_turn_complete == false) {
+        if (this.round.player_turn_complete == false && this.round.draw_card == false) {
             console.log("Player takes a single turn.")
-            this.round.player_turn_complete = Boolean(this.round.player_single_turn(this.player, chosen_ai, player_card_choice))
+            let chosen_ai = this.agents[Number(player_ai_choice)]
+            this.round.draw_card = Boolean(this.round.player_single_turn(this.player, chosen_ai, player_card_choice))
+            // console.log(this.round.draw_card)
+            if(this.round.draw_card) toggleCardMenu(2)
+            else toggleCardMenu(0)
+            
+        }
+
+        // draw a card, finished turn
+        if (this.round.player_turn_complete == false && this.round.draw_card == true) {
+            console.log("Player finish your turn by drawing a card.")
+            this.round.player_turn_complete = Boolean(this.round.draw_end_turn(this.player))
+            
         }
     }
 

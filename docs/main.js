@@ -1,7 +1,7 @@
 import { Game } from "./modules/game.js"
+import { AI } from "./modules/player.js"
 
 let game = null
-let mode = 0    // menu mode to control the game
 let first_round = true  // whether it is the first game round
 
 function startGame() {
@@ -11,11 +11,6 @@ function startGame() {
 
 function button_play_round() {
     game.play_round(chosen_agent, chosen_card)
-    
-    // change button name from Draw to End when the deck is empty
-    if (!game.deck.draw_possible()) {
-        document.getElementById("drawEnd").innerText = "End Turn"
-    }
 }
 
 // generate a series of card choices based on the max rank
@@ -58,50 +53,77 @@ function disable_invalid_AI() {
 }
 
 // toggle the card menu between three different states
-function toggleCardMenu() {
+function toggleCardMenu(mode=0) {
+    console.log(`Menu Mode: ${mode}`)
     const ai_c = document.getElementById("aiChoice")
     const card_c = document.getElementById("cardChoice")
+    const draw_end = document.getElementById("drawEnd")
+
     // after the first toggle remove the event listener
     if (first_round) {
         document.getElementById("startGame").remove()
         first_round = false
     }
-    // show the AI menu
-    if (mode == 0) {
+
+    if (mode == 0) { // ai select
+        disable_invalid_AI()
         ai_c.removeAttribute("hidden")
         card_c.setAttribute("hidden", "")
-    // show the Card menu
-    } else if (mode == 1) {
+        draw_end.setAttribute("hidden", "")
+    }
+    else if (mode == 1) { // card select
         disable_invalid_cards()
         ai_c.setAttribute("hidden", "")
         card_c.removeAttribute("hidden")
+        draw_end.setAttribute("hidden", "")
     }
-    mode = (mode + 1) % 2
+    else if (mode == 2) { // draw card, next turn 
+        ai_c.setAttribute("hidden", "")
+        card_c.setAttribute("hidden", "")
+        draw_end.removeAttribute("hidden")
+    }
 }
 
 //1-2
 let chosen_agent = null
 function button_set_agent(val) {
     chosen_agent = val
-    toggleCardMenu()
-    // further processing
 }
 
 //1-13
 let chosen_card = null
 function button_set_card(val) {
-    toggleCardMenu()
     chosen_card = val
 }
 
+
+//AI choice
+document.getElementById("AI1").addEventListener("click", function(){
+    button_set_agent(1)
+    toggleCardMenu(1)
+})
+document.getElementById("AI2").addEventListener("click", function(){
+    button_set_agent(2)
+    toggleCardMenu(1)
+})
+
+
+//card buttons
 document.getElementById("cardChoice").innerHTML = genCardChoice()
 for (let rank = 1; rank <= 13; rank++) {
     document.getElementById("card"+rank).addEventListener('click', function(){button_set_card(rank)});
     document.getElementById("card"+rank).addEventListener('click', button_play_round);
+//    document.getElementById("card"+rank).addEventListener('click', toggleCardMenu);
 }
 
+//start game button
 document.getElementById("startGame").addEventListener('click', startGame);
-document.getElementById("startGame").addEventListener('click', toggleCardMenu);
+document.getElementById("startGame").addEventListener('click', function(){toggleCardMenu(0)});
 
-document.getElementById("AI1").addEventListener("click", function(){button_set_agent(1)})
-document.getElementById("AI2").addEventListener("click", function(){button_set_agent(2)})
+//draw button
+document.getElementById("drawEnd").addEventListener("click", function(){
+    game.play_round("deal", "deal")
+    toggleCardMenu(0)
+})
+
+export { toggleCardMenu }
