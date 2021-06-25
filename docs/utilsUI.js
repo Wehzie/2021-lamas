@@ -12,13 +12,13 @@ function toggleNavBurger() {
 
 // generate a series of card choices based on the max rank
 // that a game of Go Fish is played with
-function genCardChoice(maxRank=5) {
+function genCardChoice(maxRank=13) {
     outHTML = ""
     cardSeries = "0 A 2 3 4 5 6 7 8 9 10 J Q K".split(" ")
     cS = cardSeries
 
     for (let rank = 1; rank <= maxRank; rank++) {
-        outHTML += "<button id='card"+cS[rank]+"'>" + cS[rank] + "</button>\n"
+        outHTML += "<button onclick='buttonToValue("+rank+")' id='card"+cS[rank]+"'>" + cS[rank] + "</button>\n"
     }
     return outHTML
 }
@@ -38,4 +38,9 @@ function toggleCardMenu() {
     } else {
         bp.innerHTML = "It's not your turn."
     }
+}
+
+// called by a button with some value
+function buttonToValue(val) {
+    return val
 }

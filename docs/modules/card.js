@@ -12,6 +12,9 @@ class Card {
     }
 
     print_card() {
+        /**
+         * @return {String} String representation of a playing card
+         */
         let value = num2card_val(this.value)
         switch (this.suit) {
             case "hearts":
@@ -25,9 +28,8 @@ class Card {
         }
     }
 }
-function test() {
-    prompt("testing this crap")
-}
+
+
 function num2card_val(num) {
     switch (num) {
         case 1:
@@ -59,4 +61,4 @@ function card_val2num(card_val) {
 }
 
 
-export { Card, test, num2card_val, card_val2num}
+export { Card, num2card_val, card_val2num}
