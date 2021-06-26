@@ -3,7 +3,7 @@ import { display } from "./../main.js"
 const QUERY = -50
 
 class Round {
-    constructor(deck, agents, num_of_card_sets) {
+    constructor(deck, agents, num_of_card_sets, round_count) {
         this.deck = deck
         this.agents = agents
         this.num_of_card_sets = num_of_card_sets
@@ -14,6 +14,7 @@ class Round {
         this.draw_card = false
         this.player_turn_complete = false
         this.round_complete = false
+        this.round_count = round_count
     }
 
     start_round(player_ai_choice, player_card_choice) {

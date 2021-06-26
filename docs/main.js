@@ -136,18 +136,23 @@ function toggleCardMenu(mode = 0) {
  * @param {boolean} delay do you want to delay the execution after displaying the message
  * @param {int} time number of senconds delay should last
  */
-async function display(location,string, delay = false, time = 1){
+async function display(location,string, delay = false, time = 1, append = true){
     let text_area = document.getElementById(location)
     text_area.scrollTop = text_area.scrollHeight;
     if (!delay){
-        text_area.innerHTML += `\n${string}`
+        display_delay(text_area, string, append)
     } else {
-        setTimeout(function(){display_delay(text_area, string)}, 1000 * time)
+        setTimeout(function(){display_delay(text_area, string, append)}, 1000 * time)
     }
     
 }
-function display_delay(text_area, string){
-    text_area.innerHTML += `\n${string}`
+function display_delay(text_area, string, append){
+    if(append){
+        text_area.innerHTML += `\n${string}`
+    }
+    else {
+        text_area.innerHTML = `${string}`
+    }
 }
 //1-2
 let chosen_agent = null

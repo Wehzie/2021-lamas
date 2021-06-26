@@ -38,7 +38,7 @@ class Game {
     }
 
     set_new_round() {
-        this.round = new Round(this.deck, this.agents, this.max_rank)
+        this.round = new Round(this.deck, this.agents, this.max_rank, this.round_count)
     }
 
     complete_agent_init() {
@@ -78,7 +78,8 @@ class Game {
         if (this.round_count == 0 || this.round.round_complete == true) {
             this.round_count ++
             this.set_new_round()
-            console.log(`Round ${this.round_count}`)
+            display('announce', `Round ${this.round_count}<br>${this.deck.size} cards left in deck`, false, 1, false)
+            console.log()
             console.log(`${this.deck.size} cards left in deck`)
             console.log('\n')
         }
@@ -137,6 +138,8 @@ class Game {
     check_if_over(){
         if (this.total_books == this.max_rank) {
             let winner = this.get_winner()
+            let winner_message = `${winner.name} wins in round ${this.round_count}`
+            display('announce', winner_message, false, 1, false)
             console.log(`${winner.name} wins in round ${this.round_count}`)
             this.is_over = true
             return true
