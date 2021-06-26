@@ -125,7 +125,7 @@ table {
     justify-content: center;
 }
 
-@media screen and (min-width: 24cm) {
+@media screen and (min-width: 32cm) {
     .box {
         display: flex;
         flex-direction: row;

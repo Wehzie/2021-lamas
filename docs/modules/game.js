@@ -2,7 +2,7 @@ import { Card, num2card_val } from "./card.js"
 import { Deck } from "./deck.js"
 import { Player, AI, Agent } from "./player.js"
 import { Round } from "./round.js"
-import { toggleCardMenu, display, get_ai_strat } from "./../main.js"
+import { toggleCardMenu, display, get_ai_strat, get_player_name} from "./../main.js"
 
 // possible strategies an AI can take
 const possible_strats = ['random', 'high card', 'first order', 'second order']
@@ -24,9 +24,7 @@ class Game {
         this.AI1 = new AI("1", get_ai_strat(1))
         this.AI2 = new AI("2", get_ai_strat(2))
         this.AI3 = new AI("3", possible_strats[1])
-        this.player = new Player("Gerald")
-        console.log(this.AI1.strat)
-        console.log(this.AI2.strat)
+        this.player = new Player(get_player_name())
 
         // depending on allow_human
         // either a human plays against two AIs

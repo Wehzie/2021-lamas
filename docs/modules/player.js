@@ -71,7 +71,7 @@ class Agent {
 }
 
 class Player extends Agent {
-    constructor(name) {
+    constructor(name="Gerald") {
         super()
         this.name = name
     }

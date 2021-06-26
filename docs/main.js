@@ -108,6 +108,11 @@ function get_ai_strat(ai_num){
     return option
 }
 
+function get_player_name(){
+    let name = document.getElementById("playerName").value
+    return name
+}
+
 // toggle the card menu between three different states
 function toggleCardMenu(mode = 0) {
     update_hand()
@@ -121,6 +126,7 @@ function toggleCardMenu(mode = 0) {
     // after the first toggle remove the event listener
     if (first_round) {
         document.getElementById("startGame").remove()
+        document.getElementById("startingOptions").remove()
         first_round = false
     }
 
@@ -210,4 +216,4 @@ document.getElementById("drawEnd").addEventListener("click", function () {
     toggleCardMenu(0)
 })
 
-export { toggleCardMenu , display, get_ai_strat}
+export { toggleCardMenu , display, get_ai_strat, get_player_name}
