@@ -81,11 +81,6 @@ function disable_invalid_AI() {
     });
 }
 
-function update_hand2() {
-    let hand = game.player.hand.get_hand_str()
-    document.getElementById("playerHand").innerText = hand
-}
-
 function update_hand() {
     let hand = game.player.hand.ordered_array
     let table = document.getElementById("playerHand")
@@ -95,9 +90,24 @@ function update_hand() {
     table.appendChild(tableFillData(hand))
 }
 
+function update_knowledge() {
+    for (let i = 0; i < game.agents.length; i++) {
+        const a1 = game.agents[i]
+        for (let j = 0; j < game.agents.length; j++) {
+            if (i == j) continue
+            const a2 = game.agents[j]
+            console.log(a1.kn.get_knowledge(a2))
+        }
+        
+    }
+    console.log(game.player.kn.get_knowledge())
+}
+
 // toggle the card menu between three different states
 function toggleCardMenu(mode = 0) {
     update_hand()
+    update_knowledge()
+
     //console.log(`Menu Mode: ${mode}`)
     const ai_c = document.getElementById("aiChoice")
     const card_c = document.getElementById("cardChoice")
