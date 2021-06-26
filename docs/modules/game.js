@@ -1,8 +1,8 @@
-import { Card } from "./card.js"
+import { Card, num2card_val } from "./card.js"
 import { Deck } from "./deck.js"
 import { Player, AI, Agent } from "./player.js"
 import { Round } from "./round.js"
-import { toggleCardMenu } from "./../main.js"
+import { toggleCardMenu, display } from "./../main.js"
 
 // possible strategies an AI can take
 const possible_strats = ['random', 'high card', 'first order', 'second order']
@@ -56,8 +56,10 @@ class Game {
             for(let i = 0; i < size_of_initial_hand; i++){
                 this.total_books += this.deck.deal(agent)
             }
+            agent.show_hand()
         })
-        console.log("Players initialized.")
+        // console.log("Players initialized.")
+        display('logArea', "Players initialized.", true, 1)
     }
 
     
@@ -107,6 +109,8 @@ class Game {
             console.log("Player takes a single turn.")
             let chosen_ai = this.agents[Number(player_ai_choice)]
             this.player.show_hand()
+            console.log('testing now')
+            console.log('test',Boolean(this.check_if_skip()))
             if(!this.check_if_skip()){
                 this.round.draw_card = Boolean(this.round.player_single_turn(this.player, chosen_ai, player_card_choice))
                 if(this.round.draw_card) {
@@ -128,8 +132,6 @@ class Game {
             this.round.draw_end_turn(this.player)
             this.round.draw_card = false
         }
-
-     
     }
 
     check_if_over(){
@@ -153,7 +155,7 @@ class Game {
             if (this.agents[i].books > highest_books) {
                 winner = this.agents[i]
                 highest_books = this.agents[i].books 
-            highest_books = this.agents[i].books 
+                highest_books = this.agents[i].books 
                 highest_books = this.agents[i].books 
             }
         }
@@ -164,14 +166,17 @@ class Game {
     // or when no opponent has cards on hand
     // true means skip a turn
     check_if_skip(){
-        if(!this.player.has_cards) return true
-        
+        let return_val = null
+        if(!this.player.has_cards) return_val = true
         this.agents.forEach(agent => {
             if (agent instanceof AI){
-                if (agent.hand.has_cards) return false
+                if (agent.has_cards) {
+                    return_val = false
+                }
             }
         })
-        return true
+        if (return_val == false) return false 
+        else return true
     }
 }
 

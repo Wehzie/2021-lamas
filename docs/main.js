@@ -114,6 +114,26 @@ function toggleCardMenu(mode=0) {
     }
 }
 
+/**
+ * 
+ * @param {string} location id where there message should be sent
+ * @param {string} string sting you want to display
+ * @param {boolean} delay do you want to delay the execution after displaying the message
+ * @param {int} time number of senconds delay should last
+ */
+async function display(location,string, delay = false, time = 1){
+    let text_area = document.getElementById(location)
+    text_area.scrollTop = text_area.scrollHeight;
+    if (!delay){
+        text_area.innerHTML += `\n${string}`
+    } else {
+        setTimeout(function(){display_delay(text_area, string)}, 1000 * time)
+    }
+    
+}
+function display_delay(text_area, string){
+    text_area.innerHTML += `\n${string}`
+}
 //1-2
 let chosen_agent = null
 function button_set_agent(val) {
@@ -155,4 +175,4 @@ document.getElementById("drawEnd").addEventListener("click", function(){
     toggleCardMenu(0)
 })
 
-export { toggleCardMenu }
+export { toggleCardMenu , display}
