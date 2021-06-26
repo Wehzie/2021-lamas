@@ -190,10 +190,4 @@ document.getElementById("drawEnd").addEventListener("click", function () {
     toggleCardMenu(0)
 })
 
-<<<<<<< HEAD
 export { toggleCardMenu , display}
-=======
-
-
-export { toggleCardMenu }
->>>>>>> f189232... hand shown
