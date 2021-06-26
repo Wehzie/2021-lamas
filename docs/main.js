@@ -142,7 +142,7 @@ function update_knowledge() {
             const a2 = game.agents[j]
             let name = a2.name+":"
             if (j==0) name= "Plyr:"
-            if (i==j) name= "Self:"
+            if (i==j) name= "2.O.:"
             let k = [name]
             // get knowledge about some agent
             k = k.concat(a1.kn.get_knowledge(a2))
@@ -165,7 +165,8 @@ function update_knowledge() {
     // add information text (legend)
     const info = document.createElement("div")
     info.innerText = "The integers represent the number of cards known to be held by another agent. "
-    info.innerText += "The number -1 represents an unknown amount of cards of some rank."
+    info.innerText += "The number -1 represents an unknown amount of cards of some rank. "
+    info.innerText += "The abbreviations Plyr and 2.O. refer to the human player and 2nd order knowledge."
     know.appendChild(info)
 }
 
