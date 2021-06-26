@@ -163,7 +163,9 @@ function update_knowledge() {
     info.innerText =
         "The integers represent the number of cards known to be held by another agent. "
     info.innerText +=
-        "The number -1 represents an unknown amount of cards of some rank. "
+        "The integer -1 represents an unknown amount of cards of some rank. "
+    info.innerText +=
+        "The integer -100 represents that a book of a given rank has been completed. "
     info.innerText +=
         "The abbreviations Plyr and 2.O. refer to the human player and 2nd order knowledge."
     know.appendChild(info)
