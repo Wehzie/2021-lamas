@@ -73,6 +73,7 @@ class Agent {
 class Player extends Agent {
     constructor(name="Gerald") {
         super()
+        if (name.length == 0) name = "Gerald"
         this.name = name
     }
 

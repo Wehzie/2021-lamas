@@ -3,6 +3,7 @@ import { AI } from "./modules/player.js"
 
 let game = null
 let first_round = true  // whether it is the first game round
+const cardSeries = "0 A 2 3 4 5 6 7 8 9 10 J Q K".split(" ")
 
 function tableFillData(data) {
     /**
@@ -46,7 +47,6 @@ function button_play_round() {
 // that a game of Go Fish is played with
 function genCardChoice(maxRank = 13) {
     let outHTML = ""
-    let cardSeries = "0 A 2 3 4 5 6 7 8 9 10 J Q K".split(" ")
     let cS = cardSeries
     for (let rank = 1; rank <= maxRank; rank++) {
         outHTML += "<button id='card" + rank + "'>" + cS[rank] + "</button>\n"
@@ -90,17 +90,83 @@ function update_hand() {
     table.appendChild(tableFillData(hand))
 }
 
-function update_knowledge() {
-    for (let i = 0; i < game.agents.length; i++) {
-        const a1 = game.agents[i]
-        for (let j = 0; j < game.agents.length; j++) {
-            if (i == j) continue
-            const a2 = game.agents[j]
-            console.log(a1.kn.get_knowledge(a2))
+function tableKnowledge(data, header=false) {
+    /**
+     * Build Knowledge Table
+     * @param {Array} data A 1D array of length 13
+     * @param {Boolean} header Whether to add a header row
+     * @return HTML Table
+     */
+    let table = document.createElement("table")
+    let tbody = document.createElement("tbody")
+
+    // add headers
+    if (header==true) {
+        let tr = document.createElement("tr")
+        for (let col = 0; col < 14; col++) {
+            let th = document.createElement("th")
+            th.innerHTML = cardSeries[col]
+            if (col==0) th.innerHTML = "About"
+            tr.appendChild(th)
         }
-        
+        tbody.appendChild(tr)
     }
-    console.log(game.player.kn.get_knowledge())
+    
+    // 3: different types of knowledge
+    for (let row = 0; row < 3; row++) {
+        let tr = document.createElement("tr")
+
+        // 14: name + number of cards
+        for (let col = 0; col < 14; col++) {
+            let td = document.createElement("td")
+            td.innerHTML = data[row][col]
+            tr.appendChild(td)
+        }
+        tbody.appendChild(tr)
+    }
+    table.appendChild(tbody)
+    return table
+}
+
+function update_knowledge() {
+
+    const know = document.getElementById("knowledge")
+    know.innerText = "" // reset field
+
+    for (let i = 0; i < game.agents.length; i++) {
+
+        const a1 = game.agents[i]
+        let a1_knowledge = [] // agent knowledge matrix
+
+        for (let j = 0; j < game.agents.length; j++) {
+            const a2 = game.agents[j]
+            let name = a2.name+":"
+            if (j==0) name= "Plyr:"
+            if (i==j) name= "Self:"
+            let k = [name]
+            // get knowledge about some agent
+            k = k.concat(a1.kn.get_knowledge(a2))
+            //add to knowledge matrix of agent
+            a1_knowledge.push(k)
+        }
+        const who = document.createElement("div")
+        who.innerText = a1.name + "'s knowledge"
+        know.append(who)
+        if (i==0) {
+            know.appendChild(tableKnowledge(a1_knowledge, true))
+        }
+        else {
+            know.appendChild(tableKnowledge(a1_knowledge))
+        }
+
+        const line = document.createElement("hr")
+        know.appendChild(line)
+    }
+    // add information text (legend)
+    const info = document.createElement("div")
+    info.innerText = "The integers represent the number of cards known to be held by another agent. "
+    info.innerText += "The number -1 represents an unknown amount of cards of some rank."
+    know.appendChild(info)
 }
 
 function get_ai_strat(ai_num){
@@ -116,7 +182,7 @@ function get_player_name(){
 // toggle the card menu between three different states
 function toggleCardMenu(mode = 0) {
     update_hand()
-    //update_knowledge()
+    update_knowledge()
 
     //console.log(`Menu Mode: ${mode}`)
     const ai_c = document.getElementById("aiChoice")
