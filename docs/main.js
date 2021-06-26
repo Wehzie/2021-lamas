@@ -103,10 +103,15 @@ function update_knowledge() {
     console.log(game.player.kn.get_knowledge())
 }
 
+function get_ai_strat(ai_num){
+    let option = document.getElementById(`stratAI${ai_num}`).value
+    return option
+}
+
 // toggle the card menu between three different states
 function toggleCardMenu(mode = 0) {
     update_hand()
-    update_knowledge()
+    //update_knowledge()
 
     //console.log(`Menu Mode: ${mode}`)
     const ai_c = document.getElementById("aiChoice")
@@ -205,4 +210,4 @@ document.getElementById("drawEnd").addEventListener("click", function () {
     toggleCardMenu(0)
 })
 
-export { toggleCardMenu , display}
+export { toggleCardMenu , display, get_ai_strat}

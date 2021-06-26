@@ -117,3 +117,18 @@ table {
     margin-left: auto;
     margin-right: auto;
 }
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 24cm) {
+    .box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}

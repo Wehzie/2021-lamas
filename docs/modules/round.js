@@ -57,6 +57,7 @@ class Round {
     draw_end_turn(me) {
         if(this.deck.draw_possible()){
             this.obtained_books += this.deck.deal(me)
+            display('announce', `Round ${this.round_count}<br>${this.deck.size} cards left in deck`, false, 1, false)
             reset_0s(me, this.agents)
         }
         return true
