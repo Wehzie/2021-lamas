@@ -112,3 +112,8 @@ textarea {
 #buttonPanel {
     background-color: rgb(227, 255, 253);
 }
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
