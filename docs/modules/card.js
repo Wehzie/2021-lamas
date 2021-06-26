@@ -5,7 +5,6 @@ class Card {
         this.colour = this.get_colour(suit)
     }
 
-
     get_colour() {
         if (this.suit == "hearts" || this.suit == "diamonds") return "Red"
         return "Black"
@@ -29,7 +28,6 @@ class Card {
     }
 }
 
-
 function num2card_val(num) {
     switch (num) {
         case 1:
@@ -47,18 +45,17 @@ function num2card_val(num) {
 
 function card_val2num(card_val) {
     switch (card_val) {
-        case 'A':
+        case "A":
             return 1
-        case 'J':
+        case "J":
             return 11
-        case 'Q':
+        case "Q":
             return 12
-        case 'K':
+        case "K":
             return 13
         default:
             return Number(card_val)
     }
 }
 
-
-export { Card, num2card_val, card_val2num}
+export { Card, num2card_val, card_val2num }

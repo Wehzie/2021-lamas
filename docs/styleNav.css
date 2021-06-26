@@ -33,7 +33,7 @@ nav span {
 #burger {
     padding: 1em 1em;
     display: block;
-    
+
     background: darkturquoise;
     display: block;
     position: absolute;
@@ -56,11 +56,11 @@ nav span {
     }
 
     #navDesktop {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
 
-    height: 2em;
-    align-items: center;
+        height: 2em;
+        align-items: center;
     }
 }

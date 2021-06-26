@@ -22,15 +22,14 @@ class Agent {
         return this.hand.query(value)
     }
 
-    init_knowledge(max_rank, agents){
+    init_knowledge(max_rank, agents) {
         /**
          * @return {Knowledge}  Initial knowledge at the start of a game
          */
         this.kn = new Knowledge(max_rank, agents, this)
     }
 
-
-    show_hand(){
+    show_hand() {
         console.log(`${this.name}'s hand:`)
         this.hand.print_hand()
     }
@@ -45,7 +44,7 @@ class Agent {
         this.has_cards = true
         if (this.hand.check_if_book(card)) {
             this.hand.remove_cards(card.value)
-            this.books ++
+            this.books++
             if (this.hand.size == 0) {
                 this.has_cards = false
                 console.log(`${this.name} has no more cards`)
@@ -67,20 +66,23 @@ class Agent {
         }
         return obtained_books
     }
-
 }
 
 class Player extends Agent {
-    constructor(name="Gerald") {
+    constructor(name = "Gerald") {
         super()
         if (name.length == 0) name = "Gerald"
         this.name = name
     }
 
-    select_agent(agent_list){
+    select_agent(agent_list) {
         let chosen_agent_index = 0
         let first = true
-        while (chosen_agent_index != 1 && chosen_agent_index != 2 && agent_list[chosen_agent_index].has_cards) {
+        while (
+            chosen_agent_index != 1 &&
+            chosen_agent_index != 2 &&
+            agent_list[chosen_agent_index].has_cards
+        ) {
             if (first) {
                 chosen_agent_index = prompt(
                     "Which agent would you like to ask? Type a number.\n1: AI1\n2: AI2"
@@ -94,24 +96,28 @@ class Player extends Agent {
         }
         return agent_list[chosen_agent_index]
     }
-    
-    choose_card_value(){
+
+    choose_card_value() {
         let first = true
         let chosen_card_value = null
         while (true) {
             if (first) {
                 chosen_card_value = prompt(
-                    "What card would like to as for?\n2-10 or A, J, Q, K\nNote: You must have a card of same rank in your hand!")
+                    "What card would like to as for?\n2-10 or A, J, Q, K\nNote: You must have a card of same rank in your hand!"
+                )
                 first = false
             } else {
                 chosen_card_value = prompt(
-                    "Invalid input, choose an integer between 2 and 10 or the uppercase letters: A, J, Q, K\nMake sure you have a card of that rank in your hand!")
+                    "Invalid input, choose an integer between 2 and 10 or the uppercase letters: A, J, Q, K\nMake sure you have a card of that rank in your hand!"
+                )
             }
             chosen_card_value = card_val2num(chosen_card_value)
 
-            if ((chosen_card_value > 0 ||
-                chosen_card_value < this.num_of_card_sets) &&
-                this.has_specific_cards(chosen_card_value)) {
+            if (
+                (chosen_card_value > 0 ||
+                    chosen_card_value < this.num_of_card_sets) &&
+                this.has_specific_cards(chosen_card_value)
+            ) {
                 break
             }
         }
@@ -126,15 +132,12 @@ class AI extends Agent {
         this.number = number
         this.name = `AI ${this.number}`
     }
-    choose_card_value(max_rank, chosen_agent){
-        return pick_card(this.strat, this,  max_rank, chosen_agent)
+    choose_card_value(max_rank, chosen_agent) {
+        return pick_card(this.strat, this, max_rank, chosen_agent)
     }
-    select_agent(agent_list){
+    select_agent(agent_list) {
         return pick_agent(this.strat, this, agent_list)
     }
-  
 }
 
-
-
-export { Agent, Player, AI}
+export { Agent, Player, AI }

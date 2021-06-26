@@ -3,18 +3,18 @@ import { Player, AI, Agent } from "./player.js"
 import { Round } from "./round.js"
 
 // possible strategies an AI can take
-const possible_strats = ['random', 'high card', 'first order', 'second order']
+const possible_strats = ["random", "high card", "first order", "second order"]
 
 class Game {
     /**
-     * 
+     *
      * @param {BigInt} max_rank The maximum card rank the game is played with
      */
-    constructor(max_rank, allow_human=true) {
-        this.max_rank = max_rank        // the maximum card rank in the deck
-        this.deck = new Deck(max_rank)  // filled card deck
-        this.is_over = false            // wether a game is completed
-        this.total_books = 0            // number of books already completed
+    constructor(max_rank, allow_human = true) {
+        this.max_rank = max_rank // the maximum card rank in the deck
+        this.deck = new Deck(max_rank) // filled card deck
+        this.is_over = false // wether a game is completed
+        this.total_books = 0 // number of books already completed
         // initialize three AI agents and a human player
         this.AI1 = new AI("1", possible_strats[2])
         this.AI2 = new AI("2", possible_strats[3])
@@ -29,14 +29,14 @@ class Game {
         } else {
             this.agents = [this.AI1, this.AI2, this.AI3]
         }
-        // 
+        //
         this.complete_agent_init()
     }
 
     complete_agent_init() {
         /**
          * Complete the initialization of agents in the game
-         */        
+         */
         let size_of_initial_hand = obtain_dealt_card_number(this.max_rank)
 
         this.agents.forEach((agent) => {
@@ -45,14 +45,14 @@ class Game {
             // assign the Game's deck to each agent
             agent.hand.init_deck = this.deck
             // deal each player a number of cards
-            for(let i = 0; i < size_of_initial_hand; i++){
+            for (let i = 0; i < size_of_initial_hand; i++) {
                 this.total_books += this.deck.deal(agent)
             }
         })
         console.log("Players initialized.")
     }
 
-    start_game_loop(){
+    start_game_loop() {
         /**
          * Play rounds until the all books have been completed.
          */
@@ -67,7 +67,7 @@ class Game {
             new_round.start_round()
             // count how many books were collected during the round
             this.total_books += new_round.get_new_books()
-            round_count ++
+            round_count++
             console.log(`total books obtained:${this.total_books}`)
         }
         // all books have been achieved
@@ -85,16 +85,16 @@ class Game {
         for (let i = 0; i < this.agents.length; i++) {
             if (this.agents[i].books > highest_books) {
                 winner = this.agents[i]
-                highest_books = this.agents[i].books 
-            highest_books = this.agents[i].books 
-                highest_books = this.agents[i].books 
+                highest_books = this.agents[i].books
+                highest_books = this.agents[i].books
+                highest_books = this.agents[i].books
             }
         }
         return winner
     }
 }
 
-function obtain_dealt_card_number(max_rank){
+function obtain_dealt_card_number(max_rank) {
     /**
      * @return {int}    The number of cards that a player is dealt at the start of the game
      */

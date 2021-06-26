@@ -27,7 +27,7 @@
     },
     "homepage": "https://github.com/Wehzie/2021-lamas#readme",
     "devDependencies": {
-        "eslint": "^7.26.0",
+        "eslint": "^7.29.0",
         "prettier": "2.3.0"
     },
     "prettier": {

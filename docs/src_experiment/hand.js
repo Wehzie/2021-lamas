@@ -12,32 +12,28 @@ class Hand {
         this.ordered_array = this.create_ordered_array()
     }
 
-
-    print_hand(){
+    print_hand() {
         /**
          * Print a hand
          */
         let omitted_index = []
-        for (let i = 0; i < 4; i++){
-            let row = ''
-            for (let j=0; j<13; j++){
-                if (i == 0 && this.ordered_array[j].length == 0){
+        for (let i = 0; i < 4; i++) {
+            let row = ""
+            for (let j = 0; j < 13; j++) {
+                if (i == 0 && this.ordered_array[j].length == 0) {
                     omitted_index.push(j)
                 }
-                if (!inList(j, omitted_index)){
-                    if (i < this.ordered_array[j].length){
+                if (!inList(j, omitted_index)) {
+                    if (i < this.ordered_array[j].length) {
                         row = `${row}\t${this.ordered_array[j][i].print_card()}`
                     } else {
-                        row = `${row}\t${' '}`
+                        row = `${row}\t${" "}`
                     }
                 }
-                
             }
             console.log(row)
         }
-       
     }
-
 
     create_ordered_array() {
         /**
@@ -60,7 +56,7 @@ class Hand {
         for (card in current) if (card.suit == "diamonds") newSet.push(card)
         for (card in current) if (card.suit == "spades") newSet.push(card)
         this.ordered_array[card.value - 1] = newSet
-        this.size ++
+        this.size++
     }
 
     check_if_book(card) {
@@ -87,17 +83,17 @@ class Hand {
             return false
         }
     }
-    
-    how_many_of_value(value){
+
+    how_many_of_value(value) {
         return this.ordered_array[value - 1].length
     }
 }
 function inList(value, array) {
     for (var i = 0; i < array.length; i++) {
         if (array[i] == value) {
-            return true;
+            return true
         }
     }
-    return false;
-    }
+    return false
+}
 export { Hand }
