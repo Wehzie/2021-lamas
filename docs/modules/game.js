@@ -139,12 +139,10 @@ class Game {
                 if (this.round.draw_card) {
                     toggleCardMenu(2)
                     console.log(
-                        `round complete ${this.round.round_complete} \nturn complete: ${this.player_turn_complete} \ndeal?${this.round.draw_card}`
+                        `round complete: ${this.round.round_complete} \nturn complete: ${this.round.player_turn_complete} \ndeal? ${this.round.draw_card}`
                     )
                 } else if (!this.check_if_skip()) toggleCardMenu(0)
             }
-            this.round.draw_card = true
-            toggleCardMenu(2)
         }
 
         // draw a card, finished turn
@@ -152,7 +150,7 @@ class Game {
             this.round.player_turn_complete == false &&
             this.round.draw_card == true
         ) {
-            console.log("Player finish your turn by drawing a card.")
+            display("logArea", "Finish your turn by drawing a card.", true, 1)
             this.round.player_turn_complete = true
             this.round.draw_end_turn(this.player)
             this.round.draw_card = false

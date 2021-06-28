@@ -134,11 +134,11 @@ class Round {
             let chosen_agent = me.select_agent(this.agents)
             display(
                 "logArea",
-                `${me.name} choses ${chosen_agent.name}`,
+                `${me.name} chooses ${chosen_agent.name}`,
                 true,
                 1
             )
-            // console.log(`${me.name} choses ${chosen_agent.name}`)
+            // console.log(`${me.name} chooses ${chosen_agent.name}`)
             if (chosen_agent) {
                 chosen_agent.show_hand()
                 let chosen_card_value = me.choose_card_value(
